@@ -1,0 +1,9 @@
+<%= form_with model: @post_idea, url: public_post_ideas_path do |f| %>
+<%= f.label :category_name, "ジャンル" %>
+<%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :category_name) %>
+<%= f.label :title, "タイトル" %>
+<%= f.text_field :title %>
+<%= f.label :free_body, "投稿内容" %>
+<%= f.text_field :free_body %>
+<%= f.submit "投稿" %>
+<% end %>
