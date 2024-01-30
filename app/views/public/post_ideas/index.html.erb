@@ -1,0 +1,16 @@
+<tbody>
+    <% @categories.each do |category| %>
+    <tr>
+      <td>
+        <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
+      </td>                    <%# products_pathに引数としてcategory_idを渡す %>
+
+    </tr>
+    <% end %>
+</tbody>
+
+
+
+
+
+

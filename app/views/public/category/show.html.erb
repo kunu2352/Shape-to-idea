@@ -1,0 +1,14 @@
+      <%= @category.category_name %>
+      <table>
+        <% @post_ideas.each do |post_idea| %>
+          <tr>
+
+              <td>
+                <%= link_to public_post_idea_path(post_idea.id) do %> 
+                <%= post_idea.title %>
+                <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      

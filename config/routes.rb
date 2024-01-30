@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :post_ideas, only: [:index, :edit, :new, :create, :show, :update, :destroy]
     resources :favorites, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
+    resources :purchases, only: [:create]
+    resources :category, only: [:show]
   end
   
   

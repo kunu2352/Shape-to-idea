@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-  has_many :categories
+  has_many :post_ideas
 end

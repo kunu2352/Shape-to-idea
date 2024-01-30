@@ -1,0 +1,18 @@
+<%= @post_idea.category.category_name %>
+<%= @post_idea.title %>
+<%= @post_idea.free_body %>
+
+<% if @post_idea.user_id == current_user.id%>
+  <%= @post_idea.paid_body %>
+  <%= link_to "編集", edit_public_post_idea_path(@post_idea.id) %>
+<% elsif @post_paid_confirm %>
+  <%= @post_idea.paid_body %>
+<% else %>
+  <p>この先の閲覧は購入が必要です</p>
+  <p><%= @post_idea.price %></p>
+  <%= form_with  model: @purchase, url: public_purchases_path, method: :post do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :post_idea_id, value: @post_idea.id %>
+  <%= f.submit "購入する"%>
+  <% end %>
+<% end %>
