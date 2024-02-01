@@ -11,5 +11,5 @@ class PostIdea < ApplicationRecord
   
   # validates :price, presence: true, numericality: { greater_than_or_equal_to: 1, less_than: 5000000 }
   
-
+  enum status: { published: 0, draft: 1,unpublished: 2 }
 end

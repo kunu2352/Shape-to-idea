@@ -25,7 +25,7 @@ def update
   if post_idea.update(post_idea_params)
     redirect_to public_post_idea_path(post_idea.id)
   else
-    render:new
+    render :new
   end
 end
 
@@ -36,14 +36,10 @@ def create
   if @post_idea.save!
     redirect_to public_post_idea_path(@post_idea.id)
   else
-    render:new
+    render :new
   end
 end
 
-
-def update
-
-end
 
 def destory
 
