@@ -5,7 +5,7 @@ class Public::PurchasesController < ApplicationController
     @purchase.user_id = current_user.id
     # @post_idea = PostIdea.find(params[:id])
     if @purchase.save
-      redirect_to new_public_post_idea_path
+      redirect_to public_post_ideas_path
     else
       render controller: 'post_ideas', action: 'show'
     end

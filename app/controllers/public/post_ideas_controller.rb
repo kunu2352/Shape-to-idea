@@ -42,7 +42,7 @@ end
 
 
 def destory
-
+  
 end
 
 
@@ -50,7 +50,7 @@ end
 private
 
 def post_idea_params
-  params.require(:post_idea).permit(:post_idea_params, :category_id, :title, :status, :free_body, :paid_body, :premium, :price)
+  params.require(:post_idea).permit(:post_idea_params, :category_id, :title, :status, :free_body, :paid_body, :premium, :price, :post_image)
 end
 
 end

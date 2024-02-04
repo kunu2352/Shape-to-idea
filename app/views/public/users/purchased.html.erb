@@ -1,0 +1,5 @@
+<%= render 'public/users/show_navi' %>
+<% @purchases.each do |purchase| %>
+
+<%= link_to purchase.post_idea.title,  public_post_idea_path(purchase.post_idea.id) %>
+<% end %>

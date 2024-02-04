@@ -1,4 +1,5 @@
 <%= form_with model: @post_idea, url: public_post_ideas_path do |f| %>
+<%= f.file_field :post_image, accept: "image/*" %>
 <%= f.label :category_name, "ジャンル" %>
 <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :category_name) %>
 <%= f.label :title, "タイトル" %>
