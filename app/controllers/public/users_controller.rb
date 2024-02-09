@@ -9,14 +9,14 @@ class Public::UsersController < ApplicationController
   def purchased
     @purchases = Purchase.where(user_id: current_user.id)
   end
+  
+  def favorite_all
+    @favorites = current_user.favorites
+  end
 
 
   def edit
-    is_matching_login_user
     @user = current_user
-    # if @user == current_user
-    #   render edit
-
   end
 
   def update
@@ -39,7 +39,7 @@ class Public::UsersController < ApplicationController
   private
 
   def user_params
-   params.require(:user).permit(:name, :email, :encrypted_password, :postal_code, :prefecture, :city, :street, :telephone_number, :is_active, :user_image)
+   params.require(:user).permit(:name, :email, :encrypted_password, :telephone_number, :is_active, :user_image)
   end
 
   def is_matching_login_user

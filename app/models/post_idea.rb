@@ -1,7 +1,7 @@
 class PostIdea < ApplicationRecord
   has_one_attached :post_image
 
-  has_many :comments, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   belongs_to :category
   has_many :purchases
@@ -17,5 +17,9 @@ class PostIdea < ApplicationRecord
   
   def favorited_by(user)
     favorites.exists?(user_id: user.id)
+  end
+  
+  def self.looks(word)
+    @post_idea = PostIdea.where("title LIKE?","%#{word}%")
   end
 end

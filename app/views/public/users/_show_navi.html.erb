@@ -12,9 +12,11 @@
         <li class="nav-item">
           <%= link_to "購入済み記事", public_purchased_user_path(current_user.id), class:'nav-link active' %>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "いいね記事一覧", public_favorite_all_path(current_user), class:'nav-link active' %>
+          </li>
+        <% end %>
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
         </li>

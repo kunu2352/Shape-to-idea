@@ -1,0 +1,2 @@
+module Pblic::SearchesHelper
+end
