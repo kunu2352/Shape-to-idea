@@ -19,7 +19,8 @@
   <!--購入済み-->
   <% elsif @post_paid_confirm %>
     <%= @post_idea.paid_body %>
-    
+  <% elsif current_user.email == 'guest@example.com' %>
+      <p>ゲストユーザーでは有料投稿の購入はできません。</p>
   <% else %>
     <p>この先の閲覧は購入が必要です</p>
     <p><%= @post_idea.price %></p>
@@ -31,7 +32,7 @@
   <% end %>
 
 
-  
+
   <p>コメント数<%= @post_idea.post_comments.count %></p>
   <% @post_idea.post_comments.each do |post_comment| %>
     <p><%= image_tag post_comment.user.get_profile_image %></p>

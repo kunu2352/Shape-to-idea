@@ -28,7 +28,7 @@
                     <i class="fa-solid fa-sign-out-alt"></i>投稿一覧
                   <% end %>
                 </li>
-                
+
                 <li class="nav-item">
                   <%= link_to public_user_path(current_user.id), class:'nav-link text-white' do %>
                     <i class="fa-solid fa-sign-out-alt"></i>マイページ
@@ -40,28 +40,33 @@
                   <% end %>
                 </li>
               <% elsif admin_signed_in? %>
-                <li class="nav-item"> 
+                <li class="nav-item">
                   <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-white' do %>
                     <i class="fa-solid fa-sign-out-alt"></i>ログアウト
                   <% end %>
                 </li>
-                <li class="nav-item"> 
+                <li class="nav-item">
                   <%= link_to new_admin_category_path, class:'nav-link text-white' do %>
                     <i class="fa-solid fa-sign-out-alt"></i>カテゴリー
                   <% end %>
                 </li>
               <% else %>
-                <li class="nav-item"> 
+                <li class="nav-item">
                   <%= link_to new_user_registration_path, class: 'nav-link text-white text-light' do %>
                     <i class="fa-solid fa-sign-in-alt"></i>新規登録
                   <% end %>
                 </li>
-                <li class="nav-item"> 
+                <li class="nav-item">
                   <%= link_to new_user_session_path, class: 'nav-link text-white text-light' do %>
                     <i class="fa-solid fa-sign-in-alt"></i>ログイン
                   <% end %>
                 </li>
-                <li class="nav-item"> 
+                <li class="nav-item">
+                  <%= link_to users_gest_sign_user_path, method: :post, class: 'nav-link text-white text-light' do %>
+                    <i class="fa-solid fa-sign-in-alt"></i>ゲストユーザーログイン
+                  <% end %>
+                </li>
+                <li class="nav-item">
                   <%= link_to new_admin_session_path, class: 'nav-link text-white text-light' do %>
                     <i class="fa-solid fa-sign-in-alt"></i>adminログイン
                   <% end %>

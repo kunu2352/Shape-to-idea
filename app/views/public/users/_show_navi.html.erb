@@ -7,12 +7,12 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <%= link_to "登録情報", public_user_path(current_user.id), class:'nav-link active' %>
         </li>
-        <li class="nav-item">
-          <%= link_to "購入済み記事", public_purchased_user_path(current_user.id), class:'nav-link active' %>
-        </li>
-        <% if user_signed_in? %>
+        <% unless current_user.email == "guest@example.com" %>
+          <li class="nav-item">
+            <%= link_to "購入済み記事", public_purchased_user_path(current_user.id), class:'nav-link active' %>
+          </li>
           <li class="nav-item">
             <%= link_to "いいね記事一覧", public_favorite_all_path(current_user), class:'nav-link active' %>
           </li>

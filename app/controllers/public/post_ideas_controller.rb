@@ -8,6 +8,7 @@ end
 
 def new
   @post_idea = PostIdea.new
+  @user = current_user
 end
 
 def show

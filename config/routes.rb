@@ -8,18 +8,22 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"}
   root to: 'public/homes#top'
   
+  devise_scope :user do
+    post 'users/gest_sign_user' => 'public/sessions#guest_sign_in'
+  end
+  
   namespace :admin do
     get 'homes/top' => 'homes#top', as: :top
     resources :category, only: [:new, :create]
-    
-    
   end
+  
   namespace :public do
     get 'confirm/:id' => 'users#confirm', as: 'confirm_user'
     patch 'withdrawal/id' => 'users#withdrawal', as: 'withdrawl_user'
     get 'purchased/:id' => 'users#purchased', as: 'purchased_user'
     get 'favorite_all' => 'users#favorite_all', as: 'favorite_all'
     get 'search' => 'searches#search', as: 'search'
+    
     resources :users, only:[:show, :edit, :update]
     resources :post_ideas, only: [:index, :edit, :new, :create, :show, :update, :destroy] do
       resource :favorites, only: [:create, :destroy]
