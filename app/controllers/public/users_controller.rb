@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
+    @post_ideas = @user.post_ideas
   end
 
   def purchased
@@ -39,7 +39,7 @@ class Public::UsersController < ApplicationController
   private
 
   def user_params
-   params.require(:user).permit(:name, :email, :encrypted_password, :telephone_number, :is_active, :user_image)
+   params.require(:user).permit(:name, :email, :encrypted_password, :telephone_number, :is_active, :user_image, :introduction )
   end
 
   def is_matching_login_user

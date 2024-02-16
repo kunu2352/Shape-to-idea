@@ -1,4 +1,6 @@
-  <%= image_tag @post_idea.post_image if @post_idea.post_image.present? %>
+  <% if @post_idea.post_image.present? %>
+  <%= image_tag @post_idea.post_image %>
+  <% end %>
   <%= @post_idea.category.category_name %>
   <%= @post_idea.title %>
   <%= @post_idea.free_body %>

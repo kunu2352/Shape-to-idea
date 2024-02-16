@@ -1,13 +1,15 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">マイページ</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <%= link_to "登録情報", public_user_path(current_user.id), class:'nav-link active' %>
+          <%= link_to "投稿一覧", public_user_path(current_user.id), class:'nav-link active' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "登録情報", edit_public_user_path(current_user.id), class:'nav-link active' %>
         </li>
         <% unless current_user.email == "guest@example.com" %>
           <li class="nav-item">

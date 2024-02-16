@@ -1,4 +1,12 @@
-<%= render 'public/users/show_navi' %>
+<%= render 'public/users/show_navi'%>
 <% @favorites.each do |favorite| %>
-<%= link_to favorite.post_idea.title, public_post_idea_path(favorite.post_idea.id) %>
+<%= link_to public_post_idea_path(favorite.post_idea.id) do %>
+  <div class="card" style="width: 15rem;">
+    <%= image_tag favorite.post_idea.post_image, size: '240x200'%>
+    <div class="card-body">
+      <%= content_tag :h5, favorite.post_idea.title, class: 'card-title' %>
+      <%= favorite.post_idea.free_body.truncate(20) %>
+    </div>
+  </div>
+<% end %>
 <% end %>

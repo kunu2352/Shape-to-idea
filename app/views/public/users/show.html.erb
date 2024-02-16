@@ -1,12 +1,46 @@
-<%= render 'public/users/show_navi' %>
-<div class="d-flex justify-content-evenly">
-  <%= image_tag @user.get_profile_image %>
-  <%= @user.name %>
-  <%= @user.introduction %>
+<div class="container-fluid">
   <% if @user == current_user %>
-  <p>
-    <%= link_to "登録情報編集", edit_public_user_path(current_user.id) %>
-  </p>
+  <%= render 'public/users/show_navi' %>
   <% end %>
-  
+  <div class="row">
+    <div class="d-flex justify-content-evenly">
+      <div class="card" style="width: 18rem;">
+        <%= image_tag @user.get_profile_image, size: '100x100' %>
+          <div class="card-body">
+            <%=  content_tag :h6,  @user.name, class: 'card-title' %>
+            <%= @user.introduction %>
+            <% if current_user != @user && @user.email != 'guest@example.com' && current_user.email != 'guest@example.com'%>
+            <!--ログインユーザーのメールアドレスと選択しているメールアドレスが不一致かつゲストユーザーのメールと不一致-->
+              <% if current_user.following?(@user) %>
+                <%= link_to "フォロー外す", public_user_relationship_path(@user.id), method: :delete, class: 'btn btn-primary' %>
+              <% else %>
+                <%= link_to "フォローする", public_user_relationship_path(@user.id), method: :post, class: 'btn btn-primary' %>
+              <% end %>
+            <% end %>
+            <%= link_to public_user_followings_path(@user.id) do %>
+              <p>フォロー数</p>
+              <%= @user.followings.count %>
+            <% end %>
+            <%= link_to public_user_followers_path(@user.id) do %> 
+              <p>フォロワー数</p>
+              <%= @user.followers.count %>
+            <% end %> 
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 col-lg-10 d-flex flex-wrap">
+        <% @post_ideas.each do |post_idea| %>
+        <%= link_to public_post_idea_path(post_idea.id) do %>
+        <div class="card" style="width: 15rem;">
+          <%= image_tag post_idea.post_image, size: '240x200'%>
+          <div class="card-body">
+            <%= content_tag :h5, post_idea.title, class: 'card-title' %>
+            <%= post_idea.free_body.truncate(20) %>
+          </div>
+        </div>
+    <% end %>
+    <% end %>
+        
+      </div>
+  </div>
 </div>

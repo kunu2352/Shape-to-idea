@@ -1,13 +1,29 @@
-<tbody>
-    <% @categories.each do |category| %>
-    <tr>
-      <td>
-        <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
-      </td>                    <%# products_pathに引数としてcategory_idを渡す %>
-    </tr>
-    <% end %>
-</tbody>
 
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse">
+      <% @categories.each do |category| %>
+      <ul>
+        <li>
+          <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
+        </li>
+      </ul>
+      <% end %>
+    </nav>
+  <div class="col-md-9 col-lg-10 d-flex flex-wrap">
+    <% @post_ideas.each do |post_idea| %>
+    <%= link_to public_post_idea_path(post_idea.id) do %>
+      <div class="card" style="width: 15rem;">
+        <%= image_tag post_idea.post_image, size: '240x200'%>
+        <div class="card-body">
+          <%= content_tag :h5, post_idea.title, class: 'card-title' %>
+          <%= post_idea.free_body.truncate(20) %>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+</div>
 
 
 

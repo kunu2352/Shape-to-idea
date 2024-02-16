@@ -24,7 +24,12 @@ Rails.application.routes.draw do
     get 'favorite_all' => 'users#favorite_all', as: 'favorite_all'
     get 'search' => 'searches#search', as: 'search'
     
-    resources :users, only:[:show, :edit, :update]
+    resources :users, only:[:show, :edit, :update] do
+      resource :relationship, only:[:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+    end
+    
     resources :post_ideas, only: [:index, :edit, :new, :create, :show, :update, :destroy] do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]

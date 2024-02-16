@@ -4,22 +4,43 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
+  validates :name, uniqueness: true
+
   has_one_attached :user_image
   has_many :purchases, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :post_ideas, through: :favorite
-  has_many :post_ideas, through: :purchase
   #購入した投稿との紐づけ
-  has_many :post_ideas
+  has_many :post_ideas, through: :purchase
   #自身の投稿との紐づけ
+  has_many :post_ideas
+
+  # フォロー機能
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :possive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+  has_many :followers, through: :possive_relationships, source: :follower
   
-  validates :name, uniqueness: true
+  # フォローする
+  def follow(user)
+    active_relationships.create!(followed_id: user.id)
+  end
+  
+  # フォローを解除
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
+  end
+  
+  def following?(user)
+    followings.include?(user)
+  end
   
   def to_param
     name
   end
-  
+
+  # 画像貼り付け
   def get_profile_image
     unless user_image.attached?
       file_path = Rails.root.join('app/assets/images/free_ikon.jpg')
@@ -27,18 +48,20 @@ class User < ApplicationRecord
     end
     user_image.variant(resize_to_limit:[100,100]).processed
   end
-  
-  
+
+
+  # 検索機能
   def self.looks(word)
     @user = User.where("name LIKE?","%#{word}%")
   end
-  
+
+  #ゲストログイン機能
   def self.guest
-    find_or_create_by!(email: "guest@example.com") do |user| 
+    find_or_create_by!(email: "guest@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64(6)
       user.name = "ゲストユーザー"
       user.telephone_number = 00000000000
     end
   end
-  
+
 end
