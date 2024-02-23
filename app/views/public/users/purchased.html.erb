@@ -1,5 +1,25 @@
-<%= render 'public/users/show_navi' %>
-<% @purchases.each do |purchase| %>
-
-<%= link_to purchase.post_idea.title,  public_post_idea_path(purchase.post_idea.id) %>
-<% end %>
+<div class="container text-center">
+  <%= render 'public/users/show_navi' %>
+</div>
+<div class="container-fluid">
+  <div class="row">
+  <!-- side menu -->
+    <div class= "col-lg-3 ">
+      <%= render 'public/users/user_information', user: @user %>
+    </div>
+  <!--main menu-->
+    <div class= "col-lg-9 d-flex flex-wrap">
+      <% @purchases.each do |purchase| %>
+        <div class="card m-3" style="width: 15rem;">
+          <%= link_to public_post_idea_path(purchase.post_idea.id) do %>
+            <%= image_tag purchase.post_idea.get_post_idea_image, size: '240x200'%>
+            <div class="card-body">
+              <%= content_tag :h5, purchase.post_idea.title, class: 'card-title' %>
+              <%= purchase.post_idea.free_body.truncate(20) %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

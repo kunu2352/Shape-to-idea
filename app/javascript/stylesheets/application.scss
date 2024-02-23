@@ -1,1 +1,31 @@
 @use '~bootstrap/scss/bootstrap';
+
+* {color:black;}
+
+// public_sessions_new
+.login_box{
+  margin-top:200px;
+  background-color: #eee;
+  border: 3px dotted rgba(0,0,0,0.1); 
+}
+
+.colorgraph {
+  height: 10px;
+  border-top: 0;
+  background: #66CCFF;
+}
+
+.sidebar-container{
+  background-color:#eee!important;
+}
+
+.main-container{
+  background-color:#66CCFF;
+}
+
+.user-navi{
+  background-color:#808080;
+}
+.item{
+  color:#ffffff!important;
+} 

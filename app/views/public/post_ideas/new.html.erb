@@ -1,19 +1,43 @@
-    <%= form_with model: @post_idea, url: public_post_ideas_path do |f| %>
-    <%= f.file_field :post_image, accept: "image/*" %>
-    <%= f.label :category_name, "ジャンル" %>
-    <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :category_name) %>
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title %>
-    <%= f.label :free_body, "投稿内容" %>
-    <%= f.text_area :free_body %>
-    
-    <% if @user.email == 'guest@example.com' %>
-      <p>ゲストユーザーでは有料投稿は行えません。</p>
-    <% else %>
-      <%= f.label :price, "金額" %>
-      <%= f.text_field :price %>
-      <%= f.label :paid_body, "有料投稿内容" %>
-      <%= f.text_area :paid_body %>
-      <%= f.submit "投稿" %>
+<div class="container">
+  <div class="row justify-content-center">
+    <h3>新規投稿</h3>
+  </div>
+  <div class="row justify-content-center">
+    <% if @post_idea.errors.any? %>  
+      <div class="row">
+        <%= @post_idea.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @post_idea.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
+    <%= form_with model: @post_idea, url: public_post_ideas_path do |f| %>
+      <%= f.file_field :post_image, accept: "image/*" %>
+      <%= f.label :category_name, "ジャンル" %>
+      <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :category_name) %>
+      <div class="form-group">
+        <%= f.label :title, "タイトル(※必須)" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :free_body, "投稿内容(※必須)" %>
+        <%= f.text_area :free_body, class: "form-control" %>
+      </div>
+
+      <% if current_user.email == 'guest@example.com' %>
+        <%= f.submit "投稿" %>
+        <p>ゲストユーザーでは有料投稿は行えません。</p>
+      <% else %>
+      <div class="form-group">
+        <%= f.label :price, "金額" %>
+        <%= f.text_field :price, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :paid_body, "有料投稿内容" %>
+        <%= f.text_area :paid_body, class: "form-control" %>
+      </div>
+        <%= f.submit "投稿", class: "btn btn-success" %>
+      <% end %>
     <% end %>

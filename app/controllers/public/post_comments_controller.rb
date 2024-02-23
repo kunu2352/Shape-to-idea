@@ -9,7 +9,8 @@ class Public::PostCommentsController < ApplicationController
   end
   
   def destroy
-    
+    PostComment.find(params[:id]).destroy
+    redirect_to public_post_idea_path(params[:post_idea_id])
   end
   
   private

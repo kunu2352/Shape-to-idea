@@ -1,48 +1,60 @@
   <% if @post_idea.post_image.present? %>
-  <%= image_tag @post_idea.post_image %>
+    <%= image_tag @post_idea.get_post_idea_image %>
   <% end %>
   <%= @post_idea.category.category_name %>
   <%= @post_idea.title %>
   <%= @post_idea.free_body %>
-  <% if @post_idea.favorited_by(current_user) %>
-    <%= link_to public_post_idea_favorites_path(@post_idea.id), method: :delete do %>
-    ♥ <% @post_idea.favorites.count %>いいね
-    <% end %>
-  <% else %>
-    <%= link_to public_post_idea_favorites_path(@post_idea.id), method: :post do %>
-    ♡ <% @post_idea.favorites.count %>いいね
-    <% end %>
-  <% end %>
   <!--有料記事有無、投稿者の判断を下記で行う-->
-  <!--投稿者-->
+  
   <% if @post_idea.user_id == current_user.id%>
+  <!--投稿者-->
     <%= @post_idea.paid_body %>
     <%= link_to "編集", edit_public_post_idea_path(@post_idea.id) %>
-  <!--購入済み-->
   <% elsif @post_paid_confirm %>
+  <!--購入済み-->
     <%= @post_idea.paid_body %>
   <% elsif current_user.email == 'guest@example.com' %>
-      <p>ゲストユーザーでは有料投稿の購入はできません。</p>
+    <p>ゲストユーザーでは有料投稿の購入はできません。</p>
   <% else %>
+  <!--未購入-->
     <p>この先の閲覧は購入が必要です</p>
     <p><%= @post_idea.price %></p>
     <%= form_with  model: @purchase, url: public_purchases_path, method: :post do |f| %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.hidden_field :post_idea_id, value: @post_idea.id %>
-    <%= f.submit "購入する"%>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :post_idea_id, value: @post_idea.id %>
+      <%= f.submit "購入する"%>
     <% end %>
   <% end %>
-
-
+  <!--ゲストユーザーはいいね不可、いいね機能-->
+  <% if current_user.email == 'guest@example.com' %>
+    <% @post_idea.favorites.count %>いいね
+  <% else %>
+    <% if @post_idea.favorited_by(current_user) %>
+      <%= link_to public_post_idea_favorites_path(@post_idea.id), method: :delete do %>
+        ♥ <% @post_idea.favorites.count %>いいね
+      <% end %>
+    <% else %>
+      <%= link_to public_post_idea_favorites_path(@post_idea.id), method: :post do %>
+        ♡ <% @post_idea.favorites.count %>いいね
+      <% end %>
+    <% end %>
+  <% end %>
 
   <p>コメント数<%= @post_idea.post_comments.count %></p>
   <% @post_idea.post_comments.each do |post_comment| %>
     <p><%= image_tag post_comment.user.get_profile_image %></p>
     <%= post_comment.user.name %>
     <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <% if post_comment.user == current_user %>
+    <%= link_to "削除", public_post_idea_post_comment_path(post_comment.post_idea_id, post_comment), method: :delete %>
+    <% end %>
   <% end %>
-
-  <%= form_with model: [@post_idea_new, @post_comment], url: public_post_idea_post_comments_path(@post_idea) do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
+  <!--ゲストユーザーはコメント不可　コメント機能-->
+  <% if current_user.email== 'guest@example.com' %>
+    <p>ゲストユーザーはコメントできません</p>
+  <% else %>
+    <%= form_with model: [@post_idea_new, @post_comment], url: public_post_idea_post_comments_path(@post_idea) do |f| %>
+      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+      <%= f.submit "送信する" %>
+    <% end %>
   <% end %>

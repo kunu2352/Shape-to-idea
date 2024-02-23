@@ -12,7 +12,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg p-3 bg-body-tertiary rounded">
         <div class="container">
           <span>LOGO</span>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -40,13 +40,23 @@
                 </li>
               <% elsif admin_signed_in? %>
                 <li class="nav-item">
-                  <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>ログアウト
+                  <%= link_to admin_post_ideas_path, class:'nav-link text-white' do %>
+                    <i class="fa-solid fa-sign-out-alt"></i>投稿一覧
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to new_admin_category_path, class:'nav-link text-white' do %>
                     <i class="fa-solid fa-sign-out-alt"></i>カテゴリー
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to admin_post_comments_path, class:'nav-link text-white' do %>
+                    <i class="fa-solid fa-sign-out-alt"></i>コメント管理
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-white' do %>
+                    <i class="fa-solid fa-sign-out-alt"></i>ログアウト
                   <% end %>
                 </li>
               <% else %>

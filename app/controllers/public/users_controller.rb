@@ -1,20 +1,21 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only:[:edit, :update, :confirm, :withdrawal]
-
+  
   def show
     @user = User.find(params[:id])
-    @post_ideas = @user.post_ideas
+    @post_ideas = @user.post_ideas.page(params[:page])
   end
 
   def purchased
+    @user = User.find(params[:id])
     @purchases = Purchase.where(user_id: current_user.id)
   end
   
   def favorite_all
+    @user = User.find(params[:id])
     @favorites = current_user.favorites
   end
-
-
+  
   def edit
     @user = current_user
   end

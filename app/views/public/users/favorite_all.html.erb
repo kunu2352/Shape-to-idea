@@ -1,12 +1,25 @@
-<%= render 'public/users/show_navi'%>
-<% @favorites.each do |favorite| %>
-<%= link_to public_post_idea_path(favorite.post_idea.id) do %>
-  <div class="card" style="width: 15rem;">
-    <%= image_tag favorite.post_idea.post_image, size: '240x200'%>
-    <div class="card-body">
-      <%= content_tag :h5, favorite.post_idea.title, class: 'card-title' %>
-      <%= favorite.post_idea.free_body.truncate(20) %>
+<div class="container text-center">
+  <%= render 'public/users/show_navi'%>
+</div>
+<div class="container-fluid">
+  <div class="row">
+  <!-- side menu -->
+    <div class= "col-lg-3 ">
+      <%= render 'public/users/user_information', user: @user %>
+    </div>
+  <!-- main menu -->
+    <div class= "col-lg-9 d-flex flex-wrap">
+      <% @favorites.each do |favorite| %>
+        <div class="card m-3" style="width: 15rem;">
+          <%= link_to public_post_idea_path(favorite.post_idea.id) do %>
+            <%= image_tag favorite.post_idea.get_post_idea_image, size: '240x200'%>
+            <div class="card-body">
+              <%= content_tag :h5, favorite.post_idea.title, class: 'card-title' %>
+              <%= favorite.post_idea.free_body.truncate(20) %>
+            </div>
+        <% end %>
+      </div>
+     <% end %>
     </div>
   </div>
-<% end %>
-<% end %>
+</div>

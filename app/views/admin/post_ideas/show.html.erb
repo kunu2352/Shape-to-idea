@@ -1,0 +1,15 @@
+
+  <%= image_tag @post_idea.get_post_idea_image, size: '240x200' %>
+  <%= @post_idea.category.category_name %>
+  <%= @post_idea.title %>
+  <%= @post_idea.free_body %>
+  <%= @post_idea.paid_body %>
+  <% @post_idea.favorites.count %>いいね
+  <% @post_idea.post_comments.each do |post_comment| %>
+    <p><%= image_tag post_comment.user.get_profile_image %></p>
+    <%= post_comment.user.name %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+  <% end %>
+  <%= link_to "公開", admin_post_idea_published_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-info btn-sm btn-block mb-3"%>
+  <%= link_to "非公開", admin_post_idea_unpublished_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-info btn-sm btn-block mb-3"%>
+  

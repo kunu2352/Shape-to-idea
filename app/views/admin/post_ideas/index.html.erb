@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-flex flex-wrap">
+      <% @post_ideas.each do |post_idea| %>
+        <div class="card m-3" style="width: 15rem;">
+          <%= link_to admin_post_idea_path(post_idea.id) do %>
+            <%= image_tag post_idea.get_post_idea_image, size: '240x200'%>
+            <div class="card-body">
+              <%= post_idea.category.category_name %>
+              <%= content_tag :h5, post_idea.title, class: 'card-title' %>
+              <%= post_idea.free_body.truncate(20) %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%= paginate @post_ideas %>
+    </div>
+  </div>
+</div>

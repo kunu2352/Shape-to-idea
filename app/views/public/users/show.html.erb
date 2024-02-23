@@ -1,46 +1,38 @@
-<div class="container-fluid">
-  <% if @user == current_user %>
+<% if @user == current_user %>
   <%= render 'public/users/show_navi' %>
-  <% end %>
+<% end %>
+<div class="container-fluid">
   <div class="row">
-    <div class="d-flex justify-content-evenly">
-      <div class="card" style="width: 18rem;">
-        <%= image_tag @user.get_profile_image, size: '100x100' %>
-          <div class="card-body">
-            <%=  content_tag :h6,  @user.name, class: 'card-title' %>
-            <%= @user.introduction %>
-            <% if current_user != @user && @user.email != 'guest@example.com' && current_user.email != 'guest@example.com'%>
-            <!--ログインユーザーのメールアドレスと選択しているメールアドレスが不一致かつゲストユーザーのメールと不一致-->
-              <% if current_user.following?(@user) %>
-                <%= link_to "フォロー外す", public_user_relationship_path(@user.id), method: :delete, class: 'btn btn-primary' %>
-              <% else %>
-                <%= link_to "フォローする", public_user_relationship_path(@user.id), method: :post, class: 'btn btn-primary' %>
-              <% end %>
+  <!-- side menu -->
+    <div class= "col-lg-3 ">
+      <%= render 'public/users/user_information', user: @user %>
+    </div>
+    <!-- main menu -->
+    <div class= "col-lg-9 d-flex flex-wrap main-container">
+      <% @post_ideas.each do |post_idea| %>
+        <% if post_idea.status != "published" && post_idea.user != current_user %>
+          
+        <% elsif post_idea.status != "published" && post_idea.user == current_user %>
+          <div class="card m-3" style="width: 15rem;">
+            <%= link_to public_post_idea_path(post_idea.id) do %>    
+              <%= image_tag post_idea.get_post_idea_image, size: '240x200'%>
+              <div class="card-body">
+                <h4>運営より非公開に設定されました</h4>
+              </div>
             <% end %>
-            <%= link_to public_user_followings_path(@user.id) do %>
-              <p>フォロー数</p>
-              <%= @user.followings.count %>
+          </div>
+        <% else post_idea.status == "published" %>
+          <div class="card m-3" style="width: 15rem;">
+            <%= link_to public_post_idea_path(post_idea.id) do %>    
+              <%= image_tag post_idea.get_post_idea_image, size: '240x200'%>
+              <div class="card-body">
+                <%= content_tag :h5, post_idea.title, class: 'card-title' %>
+                <%= post_idea.free_body.truncate(20) %>
+              </div>
             <% end %>
-            <%= link_to public_user_followers_path(@user.id) do %> 
-              <p>フォロワー数</p>
-              <%= @user.followers.count %>
-            <% end %> 
           </div>
-        </div>
-      </div>
-      <div class="col-md-9 col-lg-10 d-flex flex-wrap">
-        <% @post_ideas.each do |post_idea| %>
-        <%= link_to public_post_idea_path(post_idea.id) do %>
-        <div class="card" style="width: 15rem;">
-          <%= image_tag post_idea.post_image, size: '240x200'%>
-          <div class="card-body">
-            <%= content_tag :h5, post_idea.title, class: 'card-title' %>
-            <%= post_idea.free_body.truncate(20) %>
-          </div>
-        </div>
-    <% end %>
-    <% end %>
-        
-      </div>
-  </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>    
 </div>

@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    attributes:
+      post_idea:
+        title: タイトル
+        free_body: 無料投稿本文
+      user:
+        email: メールアドレス
+        password: パスワード
+        encrypted_password: 暗号化パスワード
+        encrypted_password: 暗号化パスワード
+        remember_me: ログインを記憶する
+        telephone_number: 電話番号
+        name: ユーザー名
+        forgot_your_password: パスワードを忘れましたか？

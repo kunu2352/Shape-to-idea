@@ -1,7 +1,7 @@
-
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse">
+    <nav class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse sidebar-container">
+      <h5 class="text-center mb-3">カテゴリー</h5>
       <% @categories.each do |category| %>
       <ul>
         <li>
@@ -10,18 +10,27 @@
       </ul>
       <% end %>
     </nav>
-  <div class="col-md-9 col-lg-10 d-flex flex-wrap">
-    <% @post_ideas.each do |post_idea| %>
-    <%= link_to public_post_idea_path(post_idea.id) do %>
-      <div class="card" style="width: 15rem;">
-        <%= image_tag post_idea.post_image, size: '240x200'%>
-        <div class="card-body">
-          <%= content_tag :h5, post_idea.title, class: 'card-title' %>
-          <%= post_idea.free_body.truncate(20) %>
-        </div>
-      </div>
-    <% end %>
-    <% end %>
+    <div class="col-md-10 col-lg-10 d-flex flex-wrap main-container">
+      <% @post_ideas.each do |post_idea| %>
+        <% if post_idea.status == "published" %>
+          <div class="card m-3 shadow p-3 bg-body-tertiary rounded" style="width: 15rem;">
+            <%= link_to public_post_idea_path(post_idea.id) do %>
+              <%= image_tag post_idea.get_post_idea_image, size: '200x180', class: 'shadow p-3 bg-body-tertiary rounded'%>
+              <div class="card-body">
+                <%= post_idea.category.category_name %>
+                <%= content_tag :h5, post_idea.title, class: 'card-title' %>
+                <%= post_idea.free_body.truncate(20) %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div>
+      <%= paginate @post_ideas %>
+    </div>
   </div>
 </div>
 
