@@ -7,9 +7,16 @@ ja:
       user:
         email: メールアドレス
         password: パスワード
+        Password_confirmation: パスワード(再)
         encrypted_password: 暗号化パスワード
         encrypted_password: 暗号化パスワード
         remember_me: ログインを記憶する
         telephone_number: 電話番号
         name: ユーザー名
         forgot_your_password: パスワードを忘れましたか？
+  devise:
+    confirmations:
+      sessions:
+        signed_in: 'ログインしました。'
+        signed_out: 'ログアウトしました。'
+        already_signed_out: '既にログアウト済みです。'

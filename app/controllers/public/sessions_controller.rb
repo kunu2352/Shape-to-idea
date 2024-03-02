@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  before_action :user_state, only: [:create]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -22,11 +23,28 @@ class Public::SessionsController < Devise::SessionsController
   end
   
   
+  
   def guest_sign_in
     user = User.guest
     sign_in user
     redirect_to root_path
   end
+  
+  private
+  
+  def user_state
+    user = User.find_by(email: params[:user][:email])
+    return if user.nil?
+    return unless user.valid_password?(params[:user][:password]) && user.is_active == false
+    redirect_to new_user_registration_path
+  end
+  #   user = User.find_by(email: params[:user][:email])
+  #   if user.nil?
+  #     user.is_ative == false
+  #     redirect_to new_user_registration_path
+  #   end
+  # end
+  
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

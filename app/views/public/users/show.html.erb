@@ -2,37 +2,80 @@
   <%= render 'public/users/show_navi' %>
 <% end %>
 <div class="container-fluid">
-  <div class="row">
+  <div class="row pt-4">
   <!-- side menu -->
-    <div class= "col-lg-3 ">
+    <div class= "col-lg-3 col-md-3">
       <%= render 'public/users/user_information', user: @user %>
     </div>
     <!-- main menu -->
-    <div class= "col-lg-9 d-flex flex-wrap main-container">
-      <% @post_ideas.each do |post_idea| %>
-        <% if post_idea.status != "published" && post_idea.user != current_user %>
-          
-        <% elsif post_idea.status != "published" && post_idea.user == current_user %>
-          <div class="card m-3" style="width: 15rem;">
-            <%= link_to public_post_idea_path(post_idea.id) do %>    
-              <%= image_tag post_idea.get_post_idea_image, size: '240x200'%>
-              <div class="card-body">
-                <h4>運営より非公開に設定されました</h4>
+    <div class= "col-lg-9 col-md-9 main-container justify-content-center">
+      <% if current_user %>  
+        <div class="row">
+          <% @post_ideas_current_user.each do |post_idea| %>
+          <!--運営より投稿を停止されている場合かつログインユーザーの投稿の場合は非表示になっていることを投稿者に知らせる-->
+            <% if post_idea.status != "published" && post_idea.user == current_user %>
+              <div class="col-md-3 col-sm-6">
+                <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card" >
+                  <%= link_to public_post_idea_path(post_idea.id) do %>    
+                    <%= image_tag post_idea.get_post_idea_image, class: 'shadow rounded border post_index_img' %>
+                    <div class="card-body">
+                      <%= post_idea.category.category_name %>
+                    </div>
+                    <h5 class="post_title">運営より非公開に設定されました</h5>
+                  <% end %>
+                  <div class="row align-middle">
+                    <%= image_tag post_idea.user.get_profile_image, class: 'rounded-circle ml-3', size: '30x30' %>
+                    <p><%= post_idea.user.name %></p>
+                  </div>
+                  <div class="row">
+                    <div class="ml-3">
+                      ♡ <%= post_idea.favorites.count %>
+                    </div>
+                    <div class="ml-5">
+                      <p><%= post_idea.created_at.strftime('%Y/%m/%d') %></p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            <% end %>
-          </div>
-        <% else post_idea.status == "published" %>
-          <div class="card m-3" style="width: 15rem;">
-            <%= link_to public_post_idea_path(post_idea.id) do %>    
-              <%= image_tag post_idea.get_post_idea_image, size: '240x200'%>
-              <div class="card-body">
-                <%= content_tag :h5, post_idea.title, class: 'card-title' %>
-                <%= post_idea.free_body.truncate(20) %>
+          <!--運営より投稿に問題がないと判断されている-->
+          <% else post_idea.status == "published" %>
+          <div class="col-md-3 col-sm-6">
+            <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card" >
+              <%= link_to public_post_idea_path(post_idea.id) do %>    
+                <%= image_tag post_idea.get_post_idea_image, class: 'shadow rounded border post_index_img' %>
+                <div class="card-body">
+                  <%= post_idea.category.category_name %>
+                </div>
+                <div class="post_title">
+                  <%= content_tag :h5, post_idea.title, class: 'card-title' %>
+                </div>
+              <% end %>
+              <div class="row align-middle">
+                <%= image_tag post_idea.user.get_profile_image, class: 'rounded-circle ml-3', size: '30x30' %>
+                <p><%= post_idea.user.name %></p>
               </div>
-            <% end %>
+              <div class="row">
+                <div class="ml-3">
+                  ♡ <%= post_idea.favorites.count %>
+                </div>
+                <div class="ml-5">
+                  <p><%= post_idea.created_at.strftime('%Y/%m/%d') %></p>
+                </div>
+              </div>
+            </div>
           </div>
+          <% end %>
         <% end %>
+        </div>
+      <% else %>
+        <%= render 'public/post_ideas/post_idea_card', post_ideas: @post_ideas %>
       <% end %>
     </div>
-  </div>    
+  </div>  
+  <div class="row d-flex justify-content-center">
+    <div class="col-3"></div>
+    <div class="col-9 d-flex main-container justify-content-center">
+      <%= paginate @post_ideas %>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<h2>Results index</h2>
+<h2>検索結果</h2>
 
 <table class="table table-hover table-inverse">
   <!--検索対象モデルがUserの時 -->
@@ -15,12 +15,14 @@
       <% end %>
     </tbody>
   <% else %>
-    <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
+    <!--検索対象モデルがUserではない時(= 検索対象モデルがpost_ideaの時) -->
     <tbody>
       <% @post_ideas.each do |post_idea| %>
         <tr>
-          <td><%= post_idea.title %></td>
-          <td><%= post_idea.free_body %></td>
+          <% if post_idea.status == "published" %>
+            <td><%= link_to post_idea.title, public_post_idea_path(post_idea.id) %></td>
+            <td><%= post_idea.free_body.truncate(50) %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

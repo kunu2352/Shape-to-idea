@@ -1,25 +1,79 @@
-<div class="container text-center">
-  <%= render 'public/users/show_navi'%>
-</div>
+<%= render 'public/users/show_navi'%>
 <div class="container-fluid">
-  <div class="row">
+  <div class="row pt-4">
   <!-- side menu -->
     <div class= "col-lg-3 ">
       <%= render 'public/users/user_information', user: @user %>
     </div>
   <!-- main menu -->
-    <div class= "col-lg-9 d-flex flex-wrap">
-      <% @favorites.each do |favorite| %>
-        <div class="card m-3" style="width: 15rem;">
-          <%= link_to public_post_idea_path(favorite.post_idea.id) do %>
-            <%= image_tag favorite.post_idea.get_post_idea_image, size: '240x200'%>
-            <div class="card-body">
-              <%= content_tag :h5, favorite.post_idea.title, class: 'card-title' %>
-              <%= favorite.post_idea.free_body.truncate(20) %>
+    <div class= "col-lg-9 justify-content-center main-container">
+      <div class="row">
+        <% @favorites.each do |favorite| %>
+          <% if favorite.post_idea.status != "published" && favorite.post_idea.user == current_user %>
+            <div class="col-md-3 col-sm-6">
+              <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card">
+                <%= link_to public_post_idea_path(favorite.post_idea.id) do %>    
+                  <%= image_tag favorite.post_idea.get_post_idea_image, class: 'shadow rounded border post_index_img' %>
+                  <div class="mt-2 mb-2">
+                    <%= favorite.post_idea.category.category_name %>
+                  </div>
+                  <div class="post_title" >
+                    <h5  class= "mt-2 mb-2">運営より非公開に設定されました</h5>
+                  </div>
+                <% end %>
+                <div class="mt-2 mb-2">
+                  <%= link_to public_user_path(favorite.post_idea.user.id) do %>
+                    <%= image_tag favorite.post_idea.user.get_profile_image, class: 'rounded-circle', size: '30x30' %>
+                    <%= favorite.post_idea.user.name %>
+                  <% end %>
+                </div>
+                <div class= "d-flex">
+                  <div>
+                    ♡ <%= favorite.post_idea.favorites.count %>
+                  </div>
+                  <div class= "ml-auto">
+                    <%= favorite.post_idea.created_at.strftime('%Y/%m/%d') %>
+                  </div>
+                </div>
+              </div>
             </div>
+          <% else favorite.post_idea.status == "published" %>
+            <div class="col-md-3 col-sm-6">
+              <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card">
+                <%= link_to public_post_idea_path(favorite.post_idea.id) do %>
+                  <%= image_tag favorite.post_idea.get_post_idea_image, class: 'shadow rounded border post_index_img' %>
+                  <div class="mt-2 mb-2">
+                    <%= favorite.post_idea.category.category_name %>
+                  </div>
+                  <div class="post_title" >
+                    <%= content_tag :h5, favorite.post_idea.title.truncate(20), class: 'mt-2 mb-2 ' %>
+                  </div>
+                <% end %>
+                <div class="mt-2 mb-2">
+                  <%= link_to public_user_path(favorite.post_idea.user.id) do %>
+                    <%= image_tag favorite.post_idea.user.get_profile_image, class: 'rounded-circle', size: '30x30' %>
+                    <%= favorite.post_idea.user.name %>
+                  <% end %>
+                </div>
+                <div class= "d-flex">
+                  <div>
+                    ♡ <%= favorite.post_idea.favorites.count %>
+                  </div>
+                  <div class= "ml-auto">
+                    <%= favorite.post_idea.created_at.strftime('%Y/%m/%d') %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
-     <% end %>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-3"></div>
+    <div class="col-9 d-flex main-container justify-content-center">
+      <%= paginate @favorites %>
     </div>
   </div>
 </div>

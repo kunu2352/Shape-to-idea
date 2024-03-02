@@ -1,38 +1,29 @@
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse sidebar-container">
-      <h5 class="text-center mb-3">カテゴリー</h5>
-      <% @categories.each do |category| %>
-      <ul>
-        <li>
-          <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
-        </li>
-      </ul>
-      <% end %>
-    </nav>
-    <div class="col-md-10 col-lg-10 d-flex flex-wrap main-container">
-      <% @post_ideas.each do |post_idea| %>
-        <% if post_idea.status == "published" %>
-          <div class="card m-3 shadow p-3 bg-body-tertiary rounded" style="width: 15rem;">
-            <%= link_to public_post_idea_path(post_idea.id) do %>
-              <%= image_tag post_idea.get_post_idea_image, size: '200x180', class: 'shadow p-3 bg-body-tertiary rounded'%>
-              <div class="card-body">
-                <%= post_idea.category.category_name %>
-                <%= content_tag :h5, post_idea.title, class: 'card-title' %>
-                <%= post_idea.free_body.truncate(20) %>
-              </div>
-            <% end %>
-          </div>
+    <div class="col-md-2 col-lg-2 sidebar-container">
+       <div class="d-md-block bg-light sidebar sidebar-container">
+        <h5 class="text-center mb-3">カテゴリー</h5>
+        <% @categories.each do |category| %>
+        <ul>
+          <li>
+            <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
+          </li>
+        </ul>
         <% end %>
-      <% end %>
+      </div>
+    </div>
+    <div class="col-md-10 col-lg-10 main-container justify-content-center">
+      <%= render 'public/post_ideas/post_idea_card', post_ideas: @post_ideas %>
     </div>
   </div>
   <div class="row d-flex justify-content-center">
-    <div>
+    <div class="col-2 sidebar-container"></div>
+    <div class="col-10 d-flex justify-content-center">
       <%= paginate @post_ideas %>
     </div>
   </div>
 </div>
+
 
 
 

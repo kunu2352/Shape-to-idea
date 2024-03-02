@@ -5,7 +5,7 @@ class CreatePostIdeas < ActiveRecord::Migration[6.1]
       t.integer :category_id, null: false
       t.string :title, null: false
       t.integer :status, default: 0, null: false
-      #投稿の下書き保存用
+      #管理者用ステータス
       t.text :free_body, null: false
       #無料投稿保存用
       t.text :paid_body

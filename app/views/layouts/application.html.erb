@@ -15,6 +15,9 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg p-3 bg-body-tertiary rounded">
         <div class="container">
           <span>LOGO</span>
+
+ 
+
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
@@ -38,6 +41,13 @@
                     <i class="fa-solid fa-sign-out-alt"></i>ログアウト
                   <% end %>
                 </li>
+                 <li class="nav-item">
+                  <%= form_with url: public_search_path, local: true, method: :get do |f| %>
+                    <%= f.text_field :word %>
+                    <%= f.select :range, options_for_select([["ユーザ-名",'User'],["投稿",'PostIdea']]) %>
+                    <%= f.submit "検索", class: "btn btn-primary" %>
+                  <% end %>
+                </li>
               <% elsif admin_signed_in? %>
                 <li class="nav-item">
                   <%= link_to admin_post_ideas_path, class:'nav-link text-white' do %>
@@ -57,6 +67,13 @@
                 <li class="nav-item">
                   <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-white' do %>
                     <i class="fa-solid fa-sign-out-alt"></i>ログアウト
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= form_with url: public_search_path, local: true, method: :get do |f| %>
+                    <%= f.text_field :word %>
+                    <%= f.select :range, options_for_select([["ユーザ-名",'User'],["投稿",'PostIdea']]) %>
+                    <%= f.submit "検索", class: "btn btn-primary" %>
                   <% end %>
                 </li>
               <% else %>
@@ -81,13 +98,6 @@
                   <% end %>
                 </li>
               <% end %>
-                <li class="nav-item">
-                  <%= form_with url: public_search_path, local: true, method: :get do |f| %>
-                    <%= f.text_field :word %>
-                    <%= f.select :range, options_for_select([["ユーザ-名",'User'],["投稿",'PostIdea']]) %>
-                    <%= f.submit "検索", class: "btn btn-primary" %>
-                  <% end %>
-                </li>
               </li>
             </ul>
           </div>

@@ -1,9 +1,35 @@
-<%= form_with model: @category, url: admin_category_index_path do |f| %>
-<%= f.label :category_name, "カテゴリー名" %>
-<%= f.text_field :category_name %>
-<%= f.submit "保存" %>
-<% end %>
-
-<% @categories.each do |category| %>
-<%= category.category_name %>
-<% end %>
+<div class="container-fluid">
+  <div class="row pt-4 justify-content-center">
+    <h3>カテゴリー作成</h3>
+  </div>
+  <div class="row pt-4 justify-content-center">
+    <%= form_with model: @category, url: admin_category_index_path do |f| %>
+      <%= f.label :category_name, "カテゴリー名" %>
+      <%= f.text_field :category_name %>
+      <%= f.submit "保存" %>
+    <% end %>
+  </div>
+  <div  class="row p-4 justify-content-center">
+    <h3>一覧</h3>
+  </div>
+  <div  class="row p-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-lg-3 col-mg-3">カテゴリー名</th>
+          <th class="col-lg-2 col-mg-2">投稿数</th>
+          <th class="col-lg-1 col-mg-1">削除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <th scope="row"><%= category.category_name %></th>
+            <th scope="row"><%= category.post_ideas.count %></th>
+            <th scope="row"><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に消しますか？" %> </th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -4,9 +4,9 @@
 
 // public_sessions_new
 .login_box{
-  margin-top:200px;
+  margin-top:150px;
   background-color: #eee;
-  border: 3px dotted rgba(0,0,0,0.1); 
+  border: 3px dotted rgba(0,0,0,0.1);
 }
 
 .colorgraph {
@@ -15,12 +15,17 @@
   background: #66CCFF;
 }
 
+.post_idea_card{
+  background-color:#eee!important;
+  width:100%;
+}
+
 .sidebar-container{
   background-color:#eee!important;
 }
 
 .main-container{
-  background-color:#66CCFF;
+  background-color:#FFFFFF;
 }
 
 .user-navi{
@@ -28,4 +33,30 @@
 }
 .item{
   color:#ffffff!important;
-} 
+}
+
+.post_idea_image{
+  height:400px;
+  width:700px;
+}
+
+.post_title{
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.post_index_img{
+  width:100%;
+  height:220px;
+  object-fit:contain;
+}
+
+
+
+@media (max-width: 576px) {
+  .dropdown-menu {
+    display: block;
+  }
+}

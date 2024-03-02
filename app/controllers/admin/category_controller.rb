@@ -14,6 +14,12 @@ class Admin::CategoryController < ApplicationController
     end
   end
   
+  def destroy
+    category = Category.find(params[:id])
+    category.destroy
+    redirect_to new_admin_category_path
+  end
+  
   private
   
   def category_params

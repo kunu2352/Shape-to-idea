@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     patch 'post_ideas/unpublished' => 'post_ideas/unpublished', as: :unpublished
     end
     resources :users, only: [:index, :show]
-    resources :category, only: [:new, :create]
+    resources :category, only: [:new, :create, :destroy]
   end
   
   namespace :public do
@@ -39,11 +39,11 @@ Rails.application.routes.draw do
     get 'search' => 'searches#search', as: 'search'
     
     resources :users, only:[:show, :edit, :update] do
-      resource :relationship, only:[:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
       get 'purchased/:id' => 'users#purchased', as: 'purchased_user'
       get 'favorite_all/:id' => 'users#favorite_all', as: 'favorite_all'
+      resource :relationship, only:[:create, :destroy]
     end
     
     resources :post_ideas, only: [:index, :edit, :new, :create, :show, :update, :destroy] do

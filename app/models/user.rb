@@ -64,5 +64,4 @@ class User < ApplicationRecord
       user.telephone_number = 00000000000
     end
   end
-
 end

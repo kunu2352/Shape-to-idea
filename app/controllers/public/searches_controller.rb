@@ -4,7 +4,7 @@ class Public::SearchesController < ApplicationController
     @range = params[:range]
     # binding.irb
     if @range == 'User'
-      @users = User.looks(params[:word]).where.not(email: 'guest@example.com')
+      @users = User.looks(params[:word]).where.not(email: 'guest@example.com').where.not(is_active: false)
     else
       @post_ideas = PostIdea.looks(params[:word])
     end

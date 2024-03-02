@@ -20,8 +20,12 @@ class PostIdea < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
   
+  # def post_paid_confirm
+  #   Purchase.find_by(user_id: current_user.id) && Purchase.find_by(post_idea_id: @post_idea.id) 
+  # end
+  
   def self.looks(word)
-    @post_idea = PostIdea.where("title LIKE?","%#{word}%")
+    @post_idea =PostIdea.where("title LIKE ? OR free_body LIKE ?","%#{word}%","%#{word}%")
   end
 
   public def get_post_idea_image
@@ -29,6 +33,6 @@ class PostIdea < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/idea.jpg')
       post_image.attach(io: File.open(file_path), filename: 'default_ikon.jpg', content_type: 'image/jpeg')
     end
-    post_image.variant(resize_to_limit:[100,100]).processed
+    post_image.variant(resize_to_limit:[200,180]).processed
   end
 end

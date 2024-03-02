@@ -1,14 +1,33 @@
-      <%= @category.category_name %>
-      <table>
-        <% @post_ideas.each do |post_idea| %>
-          <tr>
-
-              <td>
-                <%= link_to public_post_idea_path(post_idea.id) do %> 
-                <%= post_idea.title %>
-                <% end %>
-            </td>
-          </tr>
+<div class="container-fluid">
+  <div class="row ">
+    <div class="col-md-2 col-lg-2 sidebar-container">
+    </div>
+    <div class="col-md-10 col-lg-10 mt-3 d-flex flex-wrap justify-content-center">
+     <h4>カテゴリー名：<%= @category.category_name %></h4>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-md-2 col-lg-2 sidebar-container">
+      <div class="d-md-block bg-light sidebar sidebar-container">
+        <h5 class="text-center mb-3">カテゴリー</h5>
+        <% @categories.each do |category| %>
+          <ul>
+            <li>
+              <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
+            </li>
+          </ul>
         <% end %>
-      </table>
-      
+      </div>
+    </div>
+    <div class="col-md-10 col-lg-10 main-container justify-content-center">
+      <%= render 'public/post_ideas/post_idea_card', post_ideas: @post_ideas %>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-2 sidebar-container"></div>
+    <div class="col-10 d-flex main-container justify-content-center">
+      <%= paginate @post_ideas %>
+    </div>
+  </div>
+</div>
+

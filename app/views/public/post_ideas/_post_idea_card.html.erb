@@ -1,0 +1,31 @@
+<div class="row">
+  <% post_ideas.each do |post_idea| %>
+    <div class="col-md-3 col-sm-6">
+      <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card">
+        <%= link_to public_post_idea_path(post_idea.id) do %>
+          <%= image_tag post_idea.get_post_idea_image, class: 'shadow rounded border post_index_img' %>
+          <div class="mt-2 mb-2">
+            <%= post_idea.category.category_name %>
+          </div>
+          <div class="post_title" >
+            <%= content_tag :h5, post_idea.title.truncate(20), class: 'mt-2 mb-2 ' %>
+          </div>
+        <% end %>
+        <div class="mt-2 mb-2">
+          <%= link_to public_user_path(post_idea.user.id) do %>
+            <%= image_tag post_idea.user.get_profile_image, class: 'rounded-circle', size: '30x30' %>
+            <%= post_idea.user.name %>
+          <% end %>
+        </div>
+        <div class= "d-flex">
+          <div>
+            ♡ <%= post_idea.favorites.count %>
+          </div>
+          <div class= "ml-auto">
+            <%= post_idea.created_at.strftime('%Y/%m/%d') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

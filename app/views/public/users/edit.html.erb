@@ -1,47 +1,50 @@
-<div class="container text-center">
 <%= render 'public/users/show_navi' %>
-</div>
 <div class="container">
-  <div class="row">
-    <div class=col-10 mx-auto>
-      <% if @user.email == 'guest@example.com' %>
-        <p>ゲストユーザーのためユーザー情報の編集ができません。</p>
-      <% else %>
-        
-        <%= form_with model: @user, url:public_user_path(@user.id), method: :patch do |f| %>
-        <table>
-          <tr>
-            <th><%= f.label :user_image, "ユーザアイコン" %></th>
-            <th><%= f.file_field :user_image, accept: "image/*" %></th>
-          </tr>
-          <tr>
-            <th><%= f.label :name, "ユーザ名" %></th>
-            <th><%= f.text_field :name %></th>
-          </tr>
-          <tr>
-            <th><%= f.label :introduction, "紹介文" %></th>
-            <th><%= f.text_field :introduction %></th>
-          </tr>
-          <tr>
-            <th><%= f.label :telephone_number, '電話番号' %></th>
-            <th><%= f.text_field :telephone_number %></th>
-          </tr>
-          <tr>
-            <th><%= f.label :email, 'メールアドレス' %></th>
-            <th><%= f.email_field :email %></th>
-          </tr>
-          <tr>
-            <th></th>
-          <th class="actions">
-            <%= f.submit "変更を保存" %>
-          </th>          
-          </tr>
-        </table>
-      <!--</div>-->
-      <!--<div  class="btn-wrapper col-3 mx-auto">-->
-        <%= link_to "退会する", public_confirm_user_path, class:"btn btn-info btn-sm btn-block mb-3" %>
-        <% end %>
-      <% end %>
+  <% if @user.errors.any? %>  
+    <div class="row justify-content-center">
+      <%= @user.errors.count %>件のエラーが発生しました
     </div>
+    <div class="row justify-content-center">
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row justify-content-center">
+    <h3>ユーザー情報編集</h3>
+  </div>
+  <div class="row justify-content-center">
+    <% if @user.email == 'guest@example.com' %>
+      <p>ゲストユーザーのためユーザー情報の編集ができません。</p>
+    <% else %>
+      <%= form_with model: @user, url:public_user_path(@user.id), method: :patch do |f| %>
+        <div class="form-group">
+          <%= f.label :user_image, "ユーザアイコン" %><br>
+          <%= f.file_field :user_image, accept: "image/*" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :name, "ユーザ名" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>  
+        <div class="form-group">
+          <%= f.label :introduction, "紹介文" %><br>
+          <%= f.text_field :introduction, rows: 10, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :telephone_number, '電話番号' %><br>
+          <%= f.text_field :telephone_number, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email, 'メールアドレス' %><br>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+        <div class="justify-content-center ">
+          <%= f.submit "変更を保存", class: "btn btn-success" %>
+          <%= link_to "退会する", public_confirm_user_path, class: "btn btn-success" %>
+        </div>         
+      <% end %>
+    <% end %>
   </div>
 </div>

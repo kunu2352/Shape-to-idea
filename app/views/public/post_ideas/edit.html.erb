@@ -1,4 +1,16 @@
 <div class="container">
+  <% if @post_idea.errors.any? %>  
+    <div class="row justify-content-center">
+      <%= @post_idea.errors.count %>件のエラーが発生しました
+    </div>
+    <div class="row justify-content-center">
+      <ul>
+        <% @post_idea.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="row justify-content-center">
     <h3>投稿編集</h3>
   </div>
@@ -24,7 +36,9 @@
         <%= f.label :paid_body, "有料投稿内容" %><br>
         <%= f.text_area :paid_body, rows: 10, class: "form-control" %>
       </div>
-      <div class="justify-content-center">
+      <div class="justify-content-center ">
         <%= f.submit "編集", class: "btn btn-success" %>
       </div>
     <% end %>
+  </div>
+</div>

@@ -1,21 +1,29 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only:[:edit, :update, :confirm, :withdrawal]
-  
+
   def show
     @user = User.find(params[:id])
-    @post_ideas = @user.post_ideas.page(params[:page])
+    # ログインユーザー以外用
+    @post_ideas = @user.post_ideas.where(status: "published").page(params[:page])
+    # ログインユーザー用
+    @post_ideas_current_user = @user.post_ideas.page(params[:page])
   end
 
   def purchased
     @user = User.find(params[:id])
-    @purchases = Purchase.where(user_id: current_user.id)
+    @purchases = Purchase.where(user_id: current_user.id).page(params[:page])
   end
-  
+
   def favorite_all
     @user = User.find(params[:id])
-    @favorites = current_user.favorites
+    @favorites = current_user.favorites.page(params[:page])
+    #     @favorites = current_user.favorites
+    # @favorites.each do |favorite|
+    #   @favorite_contributor = favorite.post_idea.status != "published" && favorite.post_idea.user == current_user
+    #   @favorite_not_contributor = favorite.post_idea
+    # end
   end
-  
+
   def edit
     @user = current_user
   end
@@ -33,6 +41,9 @@ class Public::UsersController < ApplicationController
   def withdrawal
     @user = current_user
     @user.update(is_active: false)
+    @user.post_ideas.each do |post_idea|
+      post_idea.update(status: 1)
+    end
     reset_session
     redirect_to root_path, notice: "退会処理が完了しました"
   end
