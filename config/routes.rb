@@ -24,11 +24,13 @@ Rails.application.routes.draw do
   
   namespace :admin do
     get 'homes/top' => 'homes#top', as: :top
+    get 'post_ideas/purchase' => 'post_ideas/purchase', as: :purchase
     resources :post_comments, only: [:index, :destroy]
     resources :post_ideas, only: [:show, :index] do
     patch 'post_ideas/published' => 'post_ideas/published', as: :published
     patch 'post_ideas/unpublished' => 'post_ideas/unpublished', as: :unpublished
     end
+    resources :searches, only: [:index] 
     resources :users, only: [:index, :show]
     resources :category, only: [:new, :create, :destroy]
   end

@@ -5,40 +5,43 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://kit.fontawesome.com/7af9148cf8.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag('favicon.ico') %>
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg p-3 bg-body-tertiary rounded">
+    <header class="sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg p-3 bg-body-tertiary">
         <div class="container">
-          <span>LOGO</span>
-
- 
-
+          <h4 class="header_icon_color">Shape To <i class="fa-solid fa fa-lightbulb-o header_logo"></i>dea</h4>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
                 <li class="nav-item">
                   <%= link_to new_public_post_idea_path, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>投稿
+                    <i class="fa-solid fa fa-lightbulb-o header_icon_color"></i>投稿
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to public_post_ideas_path, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>投稿一覧
+                    <i class="fa-solid fa-home header_icon_color"></i>投稿一覧
                   <% end %>
                 </li>
-                <li class="nav-item">
-                  <%= link_to public_user_path(current_user.id), class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>マイページ
-                  <% end %>
-                </li>
+                <% unless current_user.email == "guest@example.com" %>
+                  <li class="nav-item">
+                    <%= link_to public_user_path(current_user.id), class:'nav-link text-white' do %>
+                      <i class="fa-solid fa-light fa-user header_icon_color"></i>マイページ
+                    <% end %>
+                  </li>
+                <% end %>
                 <li class="nav-item">
                   <%= link_to destroy_user_session_path, method: :delete, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>ログアウト
+                    <i class="fa-solid fa-sign-out-alt header_icon_color"></i>ログアウト
                   <% end %>
                 </li>
                  <li class="nav-item">
@@ -49,52 +52,57 @@
                   <% end %>
                 </li>
               <% elsif admin_signed_in? %>
-                <li class="nav-item">
+                <li class="nav-item pl-5">
                   <%= link_to admin_post_ideas_path, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>投稿一覧
+                    <i class="fa-solid fa-home header_icon_color"></i>投稿一覧
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to new_admin_category_path, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>カテゴリー
+                    <i class="fa-solid fa fa-bars header_icon_color"></i>カテゴリー
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to admin_post_comments_path, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>コメント管理
+                    <i class="fa-solid fa fa-commenting header_icon_color"></i>コメント管理
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to admin_purchase_path, class:'nav-link text-white' do %>
+                    <i class="fa-solid fa fa-shopping-cart header_icon_color"></i>取引一覧
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-white' do %>
-                    <i class="fa-solid fa-sign-out-alt"></i>ログアウト
+                    <i class="fa-solid fa-sign-out-alt header_icon_color"></i>ログアウト
                   <% end %>
                 </li>
                 <li class="nav-item">
-                  <%= form_with url: public_search_path, local: true, method: :get do |f| %>
+                  <%= form_with url: admin_searches_path, local: true, method: :get do |f| %>
                     <%= f.text_field :word %>
                     <%= f.select :range, options_for_select([["ユーザ-名",'User'],["投稿",'PostIdea']]) %>
-                    <%= f.submit "検索", class: "btn btn-primary" %>
+                    <%= f.submit "検索", class: "btn btn-primary header_icon_color" %>
                   <% end %>
                 </li>
               <% else %>
                 <li class="nav-item">
                   <%= link_to new_user_registration_path, class: 'nav-link text-white text-light' do %>
-                    <i class="fa-solid fa-sign-in-alt"></i>新規登録
+                    <i class="fa-solid fa-user-plus header_icon_color"></i>新規登録
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to new_user_session_path, class: 'nav-link text-white text-light' do %>
-                    <i class="fa-solid fa-sign-in-alt"></i>ログイン
+                    <i class="fa-solid fa-sign-in-alt header_icon_color"></i>ログイン
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to users_gest_sign_user_path, method: :post, class: 'nav-link text-white text-light' do %>
-                    <i class="fa-solid fa-sign-in-alt"></i>ゲストユーザーログイン
+                    <i class="fa-solid fa-sign-in-alt header_icon_color"></i>ゲストユーザーログイン
                   <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to new_admin_session_path, class: 'nav-link text-white text-light' do %>
-                    <i class="fa-solid fa-sign-in-alt"></i>adminログイン
+                    <i class="fa-solid fa-sign-in-alt header_icon_color"></i>adminログイン
                   <% end %>
                 </li>
               <% end %>

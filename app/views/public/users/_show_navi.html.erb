@@ -1,18 +1,26 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary user-navi">
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav pl-3">
-      <li class="nav-item">
-        <%= link_to "投稿一覧", public_user_path(current_user.id), class:'nav-link active item' %>
-      </li>
       <% unless current_user.email == "guest@example.com" %>
         <li class="nav-item">
-          <%= link_to "購入済み記事", public_user_purchased_user_path(current_user.id), class:'nav-link active item' %>
-         </li>
-        <li class="nav-item">
-          <%= link_to "いいね記事一覧", public_user_favorite_all_path(current_user.id), class:'nav-link active item' %>
+          <%= link_to public_user_path(current_user.id), class:'nav-link active item' do %>
+            <i class="fa-solid fa-home header_icon_color"></i>投稿一覧
+          <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to "登録情報", edit_public_user_path(current_user.id), class:'nav-link active item' %>
+          <%= link_to public_user_purchased_user_path(current_user.id), class:'nav-link active item' do %>
+            <i class="fa-solid fa fa-shopping-cart header_icon_color"></i>購入済み記事
+          <% end %>
+         </li>
+        <li class="nav-item">
+          <%= link_to public_user_favorite_all_path(current_user.id), class:'nav-link active item' do %>
+            <i class="fa-solid fa fa-thumbs-up header_icon_color"></i> いいね記事一覧
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to edit_public_user_path(current_user.id), class:'nav-link active item' do %>
+            <i class="fa-solid fa fa-cog header_icon_color"></i>登録情報
+          <% end %>
         </li>
       <% end %>
     </ul>

@@ -10,11 +10,13 @@ class Public::UsersController < ApplicationController
   end
 
   def purchased
+    is_matching_login_user
     @user = User.find(params[:id])
     @purchases = Purchase.where(user_id: current_user.id).page(params[:page])
   end
 
   def favorite_all
+    is_matching_login_user
     @user = User.find(params[:id])
     @favorites = current_user.favorites.page(params[:page])
     #     @favorites = current_user.favorites

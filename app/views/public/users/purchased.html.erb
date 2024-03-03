@@ -9,7 +9,7 @@
     <div class= "col-lg-9 justify-content-center main-container">
       <div class="row">
         <% @purchases.each do |purchase| %>
-          <div class="col-md-3 col-sm-6">
+          <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card">
               <%= link_to public_post_idea_path(purchase.post_idea.id) do %>
                 <%= image_tag purchase.post_idea.get_post_idea_image, class: 'shadow rounded border post_index_img' %>
@@ -28,7 +28,15 @@
               </div>
               <div class= "d-flex">
                 <div>
-                  ♡ <%= purchase.post_idea.favorites.count %>
+                  <% if purchase.post_idea.favorited_by(current_user) %>
+                    <%= link_to public_post_idea_favorites_path(purchase.post_idea.id), method: :delete do %>
+                     <span class="btn btn-light" ><sapn class="good_btn">♥ </sapn><%= purchase.post_idea.favorites.count %>いいね</span>
+                    <% end %>
+                  <% else %>
+                    <%= link_to public_post_idea_favorites_path(purchase.post_idea.id), method: :post do %>
+                      <span class="btn btn-light" >♡ <%= purchase.post_idea.favorites.count %>いいね</span>
+                    <% end %>
+                  <% end %>
                 </div>
                 <div class= "ml-auto">
                   <%= purchase.post_idea.created_at.strftime('%Y/%m/%d') %>

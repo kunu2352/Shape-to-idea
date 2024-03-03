@@ -4,8 +4,11 @@ class Public::PostCommentsController < ApplicationController
   def create
     comment = current_user.post_comments.new(post_comment_params)
     comment.post_idea_id = @post_idea.id
-    comment.save
-    redirect_to public_post_idea_path(@post_idea)
+    if comment.save
+      redirect_to public_post_idea_path(@post_idea)
+    else flash[:notice] = "5字以上300字までになります。"
+     redirect_to public_post_idea_path(@post_idea)
+    end
   end
   
   def destroy

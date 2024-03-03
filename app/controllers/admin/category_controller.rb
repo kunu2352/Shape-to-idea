@@ -1,6 +1,7 @@
 class Admin::CategoryController < ApplicationController
+  before_action :authenticate_admin!
   def new
-    @categories = Category.all
+    @categories = Category.all.page(params[:page]).per(20)
     @category = Category.new
   end
   

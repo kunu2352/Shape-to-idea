@@ -5,7 +5,7 @@ class PostIdea < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   belongs_to :category
-  has_many :purchases
+  has_many :purchases, dependent: :destroy
   has_many :users, through: :purchases
   #投稿購入者と投稿の紐づけ
   belongs_to :user
@@ -15,6 +15,7 @@ class PostIdea < ApplicationRecord
 
   enum status: { published: 0, unpublished: 1 }
   
+
   
   def favorited_by(user)
     favorites.exists?(user_id: user.id)

@@ -1,8 +1,16 @@
 <div class="card sidebar-container">
   <%= image_tag user.get_profile_image, class: 'rounded-circle', size: '100x100' %>
   <div class="card-body">
-    <%=  content_tag :h6, user.name, class: 'card-title' %>
+    <%= link_to public_user_path(user.id) do %>
+      <%=  content_tag :h6, user.name, class: 'card-title' %>
+    <% end %>
     <%= user.introduction %>
+    <%= link_to public_user_followings_path(user.id) do %>
+      <p>フォロー　<%= user.followings.count %></p>
+    <% end %>
+    <%= link_to public_user_followers_path(user.id) do %> 
+      <p>フォロワー　<%= user.followers.count %></p>
+    <% end %> 
     <% if current_user != user && user.email != 'guest@example.com' && current_user.email != 'guest@example.com'%>
     <!--ログインユーザーのメールアドレスと選択しているメールアドレスが不一致かつゲストユーザーのメールと不一致-->
       <% if current_user.following?(user) %>
@@ -11,11 +19,5 @@
         <%= link_to "フォローする", public_user_relationship_path(user.id), method: :post, class: 'btn btn-primary' %>
       <% end %>
     <% end %>
-    <%= link_to public_user_followings_path(user.id) do %>
-      <p>フォロー　<%= user.followings.count %></p>
-    <% end %>
-    <%= link_to public_user_followers_path(user.id) do %> 
-      <p>フォロワー　<%= user.followers.count %></p>
-    <% end %> 
   </div>
 </div>

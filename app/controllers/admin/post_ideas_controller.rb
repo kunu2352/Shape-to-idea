@@ -1,10 +1,15 @@
 class Admin::PostIdeasController < ApplicationController
+  before_action :authenticate_admin!
   def show
     @post_idea = PostIdea.find(params[:id])
   end
   
   def index
     @post_ideas = PostIdea.all.page(params[:page]).per(30)
+  end
+  
+  def purchase
+    @post_ideas = Purchase.all
   end
   
   def published

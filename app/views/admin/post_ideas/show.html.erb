@@ -1,15 +1,65 @@
-
-  <%= image_tag @post_idea.get_post_idea_image, size: '240x200' %>
-  <%= @post_idea.category.category_name %>
-  <%= @post_idea.title %>
-  <%= @post_idea.free_body %>
-  <%= @post_idea.paid_body %>
-  <% @post_idea.favorites.count %>いいね
-  <% @post_idea.post_comments.each do |post_comment| %>
-    <p><%= image_tag post_comment.user.get_profile_image %></p>
-    <%= post_comment.user.name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-  <% end %>
-  <%= link_to "公開", admin_post_idea_published_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-info btn-sm btn-block mb-3"%>
-  <%= link_to "非公開", admin_post_idea_unpublished_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-info btn-sm btn-block mb-3"%>
-  
+<div class="container-fluid">
+  <div class="row pt-4 justify-content-center">
+    <div class="col-8 border d-flex justify-content-center">
+      <% if @post_idea.post_image.present? %>
+        <%= image_tag @post_idea.post_image, class: 'post_idea_image object-fit-cover border rounded' %>
+      <% else %>
+        <%= image_tag @post_idea.get_post_idea_image, class: 'post_idea_image object-fit-cover border rounded' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row pt-1 justify-content-center">
+    <div class="col-8 d-flex flex-row-reverse">
+    <p>カテゴリー名：　<%= link_to @post_idea.category.category_name, public_category_path(@post_idea.category.id) %></p>
+    </div>
+  </div>
+  <div class="row pt-1 justify-content-center">
+    <div class="col-8">
+      <h2 class="d-flex justify-content-center fw-bolder">
+        <%= @post_idea.title %>
+      </h2>
+    </div>
+  </div>
+  <div class="row pt-1 justify-content-center">
+    <div class="col-8">
+        <%= @post_idea.free_body %>
+    </div>
+  </div>
+  <div class="row pt-1 justify-content-center">
+    <div class="col-8">
+      <%= @post_idea.paid_body %>
+    </div>
+  </div>
+  <div class="row pt-1 justify-content-center">
+    <div class="col-8">
+      ♡<%= @post_idea.favorites.count %>いいね
+    </div>
+  </div>
+  <div class="row pt-1 justify-content-center">
+    <div class="col-8">
+      <p><i class="fa fa-commenting" aria-hidden="true"></i>コメント数<%= @post_idea.post_comments.count %></p>
+        <% @post_idea.post_comments.each do |post_comment| %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-1"><%= image_tag post_comment.user.get_profile_image, class: 'rounded-circle', size: '30x30' %></th>
+              <th class="col-3"><%= link_to post_comment.user.name, admin_user_path(post_comment.user.id) %></th>
+              <th class="col-2"><%= post_comment.created_at.strftime('%Y/%m/%d') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= post_comment.comment %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+  <div class="row pt-1 justify-content-center">
+    <div class="col-4">
+      <%= link_to "公開", admin_post_idea_published_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-info btn-sm btn-block mb-3"%>
+      <%= link_to "非公開", admin_post_idea_unpublished_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-danger btn-sm btn-block mb-3"%>
+    </div>
+  </div>
+</div>

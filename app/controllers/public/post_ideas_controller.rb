@@ -1,5 +1,8 @@
 class Public::PostIdeasController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :show, :update, :create]
   before_action :post_idea_find, only: [:edit, :show]
+  before_action :purchase_by, only:[:show]
+  before_action :purchase_post_edit, only:[:edit]
 
   def index
     @post_ideas = PostIdea.where(status: "published").page(params[:page]).order(created_at: :desc)
@@ -14,7 +17,7 @@ class Public::PostIdeasController < ApplicationController
   def show
     # beforeacion @post_idea = PostIdea.find(params[:id])
     if current_user
-      @post_paid_confirm = Purchase.find_by(user_id: current_user.id) && Purchase.find_by(post_idea_id: @post_idea.id) 
+      @post_paid_confirm = Purchase.find_by(user_id: current_user.id) && Purchase.find_by(post_idea_id: @post_idea.id)
     end
     #投稿を購入している人を判別するためのもの 購入をするとPurchaseにuser.idとpost_idea.idが格納されいるか確認
     @purchase = Purchase.new
@@ -54,6 +57,25 @@ class Public::PostIdeasController < ApplicationController
 
 
   private
+  
+# 投稿が購入されている場合編集できないようにする
+  def purchase_post_edit
+    if Purchase.exists?(post_idea_id:  @post_idea.id) 
+      redirect_to public_post_idea_path(@post_idea.id)
+    end
+  end
+
+# 投稿が非表示状態の際に購入していないユーザーがURLから入ることを防ぐ
+  def purchase_by
+    if @post_idea.user != current_user
+      if @post_idea.status != "published"
+        if !Purchase.exists?(user_id: current_user.id)
+          redirect_to public_post_ideas_path
+        end
+      end
+    end
+  end
+
 
   def post_idea_find
     @post_idea = PostIdea.find(params[:id])
