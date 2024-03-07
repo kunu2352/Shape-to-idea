@@ -1,8 +1,9 @@
 class Public::PostIdeasController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :show, :update, :create]
+  before_action :authenticate_user!, only: [:edit, :update, :create]
   before_action :post_idea_find, only: [:edit, :show]
   before_action :purchase_by, only:[:show]
   before_action :purchase_post_edit, only:[:edit]
+  before_action :guest_user_limit, only:[:edit, :update]
 
   def index
     # 投稿一覧
@@ -73,6 +74,12 @@ class Public::PostIdeasController < ApplicationController
           redirect_to public_post_ideas_path
         end
       end
+    end
+  end
+  
+  def guest_user_limit
+    if current_user.email == 'guest@example.com'
+      redirect_to public_post_idea_path(@post_idea.id)
     end
   end
 

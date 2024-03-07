@@ -1,13 +1,14 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only:[:edit, :update, :confirm, :withdrawal]
   before_action :is_matching_login_user, only:[:edit, :update, :confirm, :purchased, :favorite_all]
+  before_action :guest_user_limit, only:[:edit, :update, :purchased ,:favorite_all ,:confirm]
 
   def show
     # ユーザー詳細画面(ユーザーの情報とユーザーの投稿一覧)
     @user = User.find(params[:id])
-    @post_ideas = @user.post_ideas.where(status: "published").page(params[:page])
+    @post_ideas = @user.post_ideas.where(status: "published").page(params[:page]).order(created_at: :desc)
     # 投稿のステータスが非表示の場合はログインユーザー(自身のページ)以外に表示させない
-    @post_ideas_current_user = @user.post_ideas.page(params[:page])
+    @post_ideas_current_user = @user.post_ideas.page(params[:page]).order(created_at: :desc)
     # 投稿のステータスが非表示の場合でもログインユーザー(自身のページ)は表示させる
   end
 
@@ -52,6 +53,12 @@ class Public::UsersController < ApplicationController
   end
 
   private
+  
+  def guest_user_limit
+    if current_user.email == 'guest@example.com'
+      redirect_to public_user_path(current_user.id)
+    end
+  end
 
   def user_params
    params.require(:user).permit(:name, :email, :encrypted_password, :telephone_number, :is_active, :user_image, :introduction )

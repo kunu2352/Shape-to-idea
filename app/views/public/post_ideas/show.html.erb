@@ -29,9 +29,11 @@
           <div>
             <%= @post_idea.paid_body %>
           </div>
-          <div class="d-flex flex-row-reverse">
-            <%= link_to "編集", edit_public_post_idea_path(@post_idea.id), class: 'btn btn-info' %>
-          </div>
+          <% if current_user.email != 'guest@example.com' %>
+            <div class="d-flex flex-row-reverse">
+              <%= link_to "編集", edit_public_post_idea_path(@post_idea.id), class: 'btn btn-info' %>
+            </div>
+          <% end %>
           <% elsif @post_paid_confirm %>
 <!--購入者ー-->
           <div class="border_item_purchase">
@@ -39,7 +41,7 @@
           </div>
         <% elsif current_user.email == 'guest@example.com' %>
 <!--ゲストユーザー-->
-          <p>ゲストユーザーでは有料投稿の購入はできません。</p>
+          <p class="border_item_purchase">ゲストユーザーでは有料投稿の購入はできません。</p>
         <% else %>
 <!--未購入-->
           <div class="border_item">
@@ -100,6 +102,16 @@
             <%= f.submit "送信する", class: "btn btn-success mb-2" %>
           <% end %>
         <% end %>
+      <% else %>
+        <div class="border_item_purchase">
+          <p>この先の閲覧は購入が必要です。</p>
+          <p>新規登録をしてください。</p>
+          <%= link_to new_user_registration_path, class: 'nav-link text-white text-light' do %>
+            <div class="actions">
+              <button class= "btn btn-success" %>新規登録</button>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>

@@ -100,11 +100,11 @@
                     <i class="fa-solid fa-sign-in-alt header_icon_color"></i>ゲストユーザーログイン
                   <% end %>
                 </li>
-                <li class="nav-item">
-                  <%= link_to new_admin_session_path, class: 'nav-link text-white text-light' do %>
-                    <i class="fa-solid fa-sign-in-alt header_icon_color"></i>adminログイン
-                  <% end %>
-                </li>
+                <!--<li class="nav-item">-->
+                   <!--link_to new_admin_session_path, class: 'nav-link text-white text-light' do-->
+                <!--    <i class="fa-solid fa-sign-in-alt header_icon_color"></i>adminログイン-->
+                <!-- end %>-->
+                <!--</li>-->
               <% end %>
               </li>
             </ul>
@@ -113,5 +113,10 @@
       </nav>
     </header>
     <%= yield %>
+    <footer class="container-fluid mt-5">
+      <div class="row">
+    <!-- ここにコンテンツ入れる -->
+      </div>
+    </footer>
   </body>
 </html>

@@ -24,12 +24,14 @@
                 <% end %>
               </th>
               <th>
-                <% if current_user != user && user.email != 'guest@example.com' && current_user.email != 'guest@example.com'%>
-    <!--ログインユーザーのメールアドレスと選択しているメールアドレスが不一致かつゲストユーザーのメールと不一致-->
-                  <% if current_user.following?(user) %>
-                    <%= link_to "フォロー外す", public_user_relationship_path(user.id), method: :delete, class: 'btn btn-primary' %>
-                  <% else %>
-                    <%= link_to "フォローする", public_user_relationship_path(user.id), method: :post, class: 'btn btn-primary' %>
+                <% if user_signed_in? %>
+                  <% if current_user != user && user.email != 'guest@example.com' && current_user.email != 'guest@example.com'%>
+      <!--ログインユーザーのメールアドレスと選択しているメールアドレスが不一致かつゲストユーザーのメールと不一致-->
+                    <% if current_user.following?(user) %>
+                      <%= link_to "フォロー外す", public_user_relationship_path(user.id), method: :delete, class: 'btn btn-primary' %>
+                    <% else %>
+                      <%= link_to "フォローする", public_user_relationship_path(user.id), method: :post, class: 'btn btn-primary' %>
+                    <% end %>
                   <% end %>
                 <% end %>
               </th>
