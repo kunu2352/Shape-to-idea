@@ -40,23 +40,21 @@
           </thead>
           <tbody>
             <% @post_ideas.each do |post_idea| %>
-              <% if post_idea.status == "published" %>
-                <tr>
-                  <th>
-                    <%= link_to admin_post_idea_path(post_idea.id), class: 'text-dark' do %>
-                      <%= post_idea.title %>
-                    <% end %>
-                  </th>
-                  <th><%= post_idea.free_body.truncate(25) %></th>
-                  <th><%= post_idea.created_at.strftime('%Y/%m/%d') %></th>
-                  <th>♡<%= post_idea.favorites.count %>いいね</th>
-                  <th>
-                    <%= link_to admin_user_path(post_idea.user.id), class: 'text-dark' do %>
-                      <%= post_idea.user.name %>
-                    <% end %>
-                  </th>
-                </tr>
-              <% end %>
+              <tr>
+                <th>
+                  <%= link_to admin_post_idea_path(post_idea.id), class: 'text-dark' do %>
+                    <%= post_idea.title %>
+                  <% end %>
+                </th>
+                <th><%= post_idea.free_body.truncate(25) %></th>
+                <th><%= post_idea.created_at.strftime('%Y/%m/%d') %></th>
+                <th>♡<%= post_idea.favorites.count %>いいね</th>
+                <th>
+                  <%= link_to admin_user_path(post_idea.user.id), class: 'text-dark' do %>
+                    <%= post_idea.user.name %>
+                  <% end %>
+                </th>
+              </tr>
             <% end %>
           </tbody>
         <% end %>

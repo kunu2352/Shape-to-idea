@@ -1,46 +1,47 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only:[:edit, :update, :confirm, :withdrawal]
+  before_action :is_matching_login_user, only:[:edit, :update, :confirm, :purchased, :favorite_all]
 
   def show
+    # ユーザー詳細画面(ユーザーの情報とユーザーの投稿一覧)
     @user = User.find(params[:id])
-    # ログインユーザー以外用
     @post_ideas = @user.post_ideas.where(status: "published").page(params[:page])
-    # ログインユーザー用
+    # 投稿のステータスが非表示の場合はログインユーザー(自身のページ)以外に表示させない
     @post_ideas_current_user = @user.post_ideas.page(params[:page])
+    # 投稿のステータスが非表示の場合でもログインユーザー(自身のページ)は表示させる
   end
 
   def purchased
-    is_matching_login_user
+    # 購入した投稿の一覧
     @user = User.find(params[:id])
     @purchases = Purchase.where(user_id: current_user.id).page(params[:page])
   end
 
   def favorite_all
-    is_matching_login_user
+    # いいねした投稿の一覧
     @user = User.find(params[:id])
     @favorites = current_user.favorites.page(params[:page])
-    #     @favorites = current_user.favorites
-    # @favorites.each do |favorite|
-    #   @favorite_contributor = favorite.post_idea.status != "published" && favorite.post_idea.user == current_user
-    #   @favorite_not_contributor = favorite.post_idea
-    # end
   end
 
   def edit
+    # ユーザーの情報編集画面
     @user = current_user
   end
 
   def update
+    # ユーザーの情報編集
     @user = current_user
     @user.update(user_params)
     redirect_to public_user_path(@user.id)
   end
 
   def confirm
+    # 退会確認画面
     @user = User.find(params[:id])
   end
 
   def withdrawal
+    # 退会機能
     @user = current_user
     @user.update(is_active: false)
     @user.post_ideas.each do |post_idea|
@@ -57,8 +58,8 @@ class Public::UsersController < ApplicationController
   end
 
   def is_matching_login_user
-    user = current_user
-    unless user.id = current_user.id
+    user =  User.find(params[:id])
+    unless user.id == current_user.id
       redirect_to public_user_path(current_user.id)
     end
   end

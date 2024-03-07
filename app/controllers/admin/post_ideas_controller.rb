@@ -5,7 +5,7 @@ class Admin::PostIdeasController < ApplicationController
   end
   
   def index
-    @post_ideas = PostIdea.all.page(params[:page]).per(30)
+    @post_ideas = PostIdea.all.page(params[:page]).per(30).order(created_at: :desc)
   end
   
   def purchase
@@ -13,15 +13,17 @@ class Admin::PostIdeasController < ApplicationController
   end
   
   def published
+    # 投稿を公開する
     @post_idea = PostIdea.find(params[:post_idea_id])
     @post_idea.update(status: 0)
-    redirect_to admin_post_comments_path
+    redirect_to admin_post_idea_path(@post_idea.id)
   end
   
   def unpublished
+    # 投稿を非公開にする
     @post_idea = PostIdea.find(params[:post_idea_id])
     @post_idea.update(status: 1)
-    redirect_to admin_post_comments_path
+    redirect_to admin_post_idea_path(@post_idea.id)
   end
   
   private

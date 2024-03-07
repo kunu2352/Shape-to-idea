@@ -5,16 +5,19 @@ class Public::PostIdeasController < ApplicationController
   before_action :purchase_post_edit, only:[:edit]
 
   def index
+    # 投稿一覧
     @post_ideas = PostIdea.where(status: "published").page(params[:page]).order(created_at: :desc)
-    @categories = Category.all
+    @categories = Category.all.sort_by { |category| category.kana }
   end
 
   def new
+    # 投稿作成
     @post_idea = PostIdea.new
   # current_user @user =
   end
 
   def show
+    # 投稿の詳細
     # beforeacion @post_idea = PostIdea.find(params[:id])
     if current_user
       @post_paid_confirm = Purchase.find_by(user_id: current_user.id) && Purchase.find_by(post_idea_id: @post_idea.id)
@@ -27,10 +30,12 @@ class Public::PostIdeasController < ApplicationController
   end
 
   def edit
+    # 投稿の編集画面
     # beforeacion @post_idea = PostIdea.find(params[:id])
   end
 
   def update
+    # 投稿の編集
     @post_idea = PostIdea.find(params[:id])
     @post_idea.user_id = current_user.id
     if @post_idea.update(post_idea_params)
@@ -41,6 +46,7 @@ class Public::PostIdeasController < ApplicationController
   end
 
   def create
+    # 投稿作成
     @post_idea = PostIdea.new(post_idea_params)
     @post_idea.user_id = current_user.id
     if @post_idea.save
@@ -50,17 +56,11 @@ class Public::PostIdeasController < ApplicationController
     end
   end
 
-
-  def destory
-
-  end
-
-
   private
-  
+
 # 投稿が購入されている場合編集できないようにする
   def purchase_post_edit
-    if Purchase.exists?(post_idea_id:  @post_idea.id) 
+    if Purchase.exists?(post_idea_id:  @post_idea.id)
       redirect_to public_post_idea_path(@post_idea.id)
     end
   end

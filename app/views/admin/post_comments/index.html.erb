@@ -1,22 +1,31 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th class="col-2">ユーザー名</th>
-      <th class="col-2">投稿タイトル</th>
-      <th class="col-6">コメント</th>
-      <th class="col-1">コメント日時</th>
-      <th class="col-1">削除</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @post_comments.each do |post_comment| %>
-      <tr>
-        <th scope="row"><%= post_comment.user.name %></th>
-        <th scope="row"><%= link_to post_comment.post_idea.title, admin_post_idea_path(post_comment.post_idea.id) %></th>
-        <th scope="row"><%= post_comment.comment %></th>
-        <td scope="row"><%= post_comment.created_at.strftime('%Y/%m/%d') %></td>
-        <td scope="row"><%= link_to "削除", admin_post_comment_path(post_comment.id), method: :delete, "data-confirm" => "本当に消しますか？" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container-fluid">
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-2">ユーザー名</th>
+          <th class="col-2">投稿タイトル</th>
+          <th class="col-6">コメント</th>
+          <th class="col-1">コメント日時</th>
+          <th class="col-1">削除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @post_comments.each do |post_comment| %>
+          <tr>
+            <th scope="row"><%= post_comment.user.name %></th>
+            <th scope="row"><%= link_to post_comment.post_idea.title, admin_post_idea_path(post_comment.post_idea.id) %></th>
+            <th scope="row"><%= post_comment.comment %></th>
+            <td scope="row"><%= post_comment.created_at.strftime('%Y/%m/%d') %></td>
+            <td scope="row"><%= link_to "削除", admin_post_comment_path(post_comment.id), method: :delete, "data-confirm" => "本当に消しますか？" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="row justify-content-center">
+    <div class="justify-content-center">
+      <%= paginate @post_comments %>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,14 @@
   </div>
   <div class="row pt-1 justify-content-center">
     <div class="col-8 d-flex flex-row-reverse">
-    <p>カテゴリー名：　<%= link_to @post_idea.category.category_name, public_category_path(@post_idea.category.id) %></p>
+      <% if @post_idea.status == "published" %>
+        <p>状態 :　公開</p>
+    　<% else %>
+        <p>状態 :　非公開</p>
+      <% end %>
+    </div>
+    <div class="col-8 d-flex flex-row-reverse">
+      <p>カテゴリー名：　<%= @post_idea.category.category_name %></p>
     </div>
   </div>
   <div class="row pt-1 justify-content-center">
@@ -58,7 +65,7 @@
   </div>
   <div class="row pt-1 justify-content-center">
     <div class="col-4">
-      <%= link_to "公開", admin_post_idea_published_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-info btn-sm btn-block mb-3"%>
+      <%= link_to "公開", admin_post_idea_published_path(@post_idea.id), method: :patch, data: { confirm: "本当に公開にしますか？" }, class:"btn btn-info btn-sm btn-block mb-3"%>
       <%= link_to "非公開", admin_post_idea_unpublished_path(@post_idea.id), method: :patch, data: { confirm: "本当に非公開にしますか？" }, class:"btn btn-danger btn-sm btn-block mb-3"%>
     </div>
   </div>

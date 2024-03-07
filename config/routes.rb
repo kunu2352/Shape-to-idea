@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     patch 'post_ideas/unpublished' => 'post_ideas/unpublished', as: :unpublished
     end
     resources :searches, only: [:index] 
-    resources :users, only: [:index, :show]
+    resources :users, only: [:show]
     resources :category, only: [:new, :create, :destroy]
   end
   
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
       resource :relationship, only:[:create, :destroy]
     end
     
-    resources :post_ideas, only: [:index, :edit, :new, :create, :show, :update, :destroy] do
+    resources :post_ideas, only: [:index, :edit, :new, :create, :show, :update] do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end

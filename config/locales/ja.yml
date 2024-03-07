@@ -4,6 +4,8 @@ ja:
       post_idea:
         title: タイトル
         free_body: 無料投稿本文
+        published: 公開
+        unpublished: 非公開
       user:
         email: メールアドレス
         password: パスワード
@@ -14,9 +16,3 @@ ja:
         telephone_number: 電話番号
         name: ユーザー名
         forgot_your_password: パスワードを忘れましたか？
-  devise:
-    confirmations:
-      sessions:
-        signed_in: 'ログインしました。'
-        signed_out: 'ログアウトしました。'
-        already_signed_out: '既にログアウト済みです。'

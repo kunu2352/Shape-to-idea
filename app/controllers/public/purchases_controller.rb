@@ -1,6 +1,7 @@
 class Public::PurchasesController < ApplicationController
   
   def create
+    # 投稿購入時の情報作成
     @purchase = Purchase.new(params_purchase)
     @purchase.user_id = current_user.id
     @post_idea = @purchase.post_idea
