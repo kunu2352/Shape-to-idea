@@ -81,7 +81,7 @@ PostIdea.find_or_create_by!(title: "新規広告方法") do |post_idea|
   post_idea.post_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-post1.jpg"), filename:"sample-post1.jpg")
   post_idea.free_body = "犬がいたら大半の人が見つめます。$1近くのスーパーで犬が主人の帰りを待っていました。
 体感８割の人が犬を見つめていました。町中にある看板がどれほど効果がるかわからないがあれほど見られることは少ないと思います。"
-  post_idea.price = "3000"
+  post_idea.price = "5000"
   post_idea.paid_body = "今回紹介するのは犬を広告等とした宣伝モデルです。
   $1犬に広告の服を着てもらう。＋月に最低900分の外出を行ってもらう。
   $1飼い主さんへのメリット
