@@ -18,24 +18,24 @@
 <!--カテゴリー一覧表示-->
   <div  class="row p-4  justify-content-center">
     <div class="col-8">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="col-3">カテゴリー名</th>
-          <th class="col-2">投稿数</th>
-          <th class="col-1">削除</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @categories.each do |category| %>
+      <table class="table">
+        <thead>
           <tr>
-            <th scope="row"><%= category.category_name %></th>
-            <th scope="row"><%= category.post_ideas.count %></th>
-            <th scope="row"><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に消しますか？" %> </th>
+            <th class="col-3">カテゴリー名</th>
+            <th class="col-2">投稿数</th>
+            <th class="col-1">削除</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @categories.each do |category| %>
+            <tr>
+              <th scope="row"><%= category.category_name %></th>
+              <th scope="row"><%= category.post_ideas.count %></th>
+              <th scope="row"><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に消しますか？" %> </th>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

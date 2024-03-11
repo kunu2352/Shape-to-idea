@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
   
   namespace :admin do
-    get 'homes/top' => 'homes#top', as: :top
+    # get 'homes/top' => 'homes#top', as: :top
     get 'post_ideas/purchase' => 'post_ideas/purchase', as: :purchase
     resources :post_comments, only: [:index, :destroy]
     resources :post_ideas, only: [:show, :index] do

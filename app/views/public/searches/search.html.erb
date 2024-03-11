@@ -22,22 +22,26 @@
           <tbody>
             <% @users.each do |user| %>
               <tr>
-                  <th><%= image_tag user.get_profile_image, class: 'rounded-circle', size: '40x40' %></th>
-                  <th>
-                    <%= link_to public_user_path(user.id), class: 'text-dark' do %>
-                      <%= user.name %>
+                <th>
+                  <%= image_tag user.get_profile_image, class: 'rounded-circle', size: '40x40' %>
+                </th>
+                <th>
+                  <%= link_to public_user_path(user.id), class: 'text-dark' do %>
+                    <%= user.name %>
+                  <% end %>
+                </th>
+                <th>
+                  <%= user.introduction %>
+                </th>
+                <th>
+                  <% if current_user != user && user.email != 'guest@example.com' && current_user.email != 'guest@example.com'%>
+                    <% if current_user.following?(user) %>
+                      <%= link_to "フォロー外す", public_user_relationship_path(user.id), method: :delete, class: 'btn btn-primary' %>
+                    <% else %>
+                      <%= link_to "フォローする", public_user_relationship_path(user.id), method: :post, class: 'btn btn-primary' %>
                     <% end %>
-                  </th>
-                  <th><%= user.introduction %></th>
-                  <th>
-                    <% if current_user != user && user.email != 'guest@example.com' && current_user.email != 'guest@example.com'%>
-                      <% if current_user.following?(user) %>
-                        <%= link_to "フォロー外す", public_user_relationship_path(user.id), method: :delete, class: 'btn btn-primary' %>
-                      <% else %>
-                        <%= link_to "フォローする", public_user_relationship_path(user.id), method: :post, class: 'btn btn-primary' %>
-                      <% end %>
-                    <% end %>
-                  </th>
+                  <% end %>
+                </th>
               </tr>
             <% end %>
           </tbody>

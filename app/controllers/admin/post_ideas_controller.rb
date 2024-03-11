@@ -9,7 +9,7 @@ class Admin::PostIdeasController < ApplicationController
   end
   
   def purchase
-    @post_ideas = Purchase.all
+    @post_ideas = Purchase.all.order(created_at: :desc)
   end
   
   def published

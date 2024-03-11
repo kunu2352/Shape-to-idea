@@ -1,16 +1,4 @@
 <div class="container">
-  <% if @post_idea.errors.any? %>  
-    <div class="row justify-content-center">
-      <%= @post_idea.errors.count %>件のエラーが発生しました
-    </div>
-    <div class="row justify-content-center">
-      <ul>
-        <% @post_idea.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="row justify-content-center">
     <h3>投稿編集</h3>
   </div>

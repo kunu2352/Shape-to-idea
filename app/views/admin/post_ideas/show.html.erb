@@ -32,7 +32,7 @@
         <%= @post_idea.free_body %>
     </div>
   </div>
-  <div class="row pt-1 justify-content-center">
+  <div class="row pt-1 justify-content-center border_item_purchase">
     <div class="col-8">
       <%= @post_idea.paid_body %>
     </div>
@@ -45,7 +45,7 @@
   <div class="row pt-1 justify-content-center">
     <div class="col-8">
       <p><i class="fa fa-commenting" aria-hidden="true"></i>コメント数<%= @post_idea.post_comments.count %></p>
-        <% @post_idea.post_comments.each do |post_comment| %>
+      <% @post_idea.post_comments.each do |post_comment| %>
         <table class="table">
           <thead>
             <tr>

@@ -15,13 +15,13 @@ class Public::UsersController < ApplicationController
   def purchased
     # 購入した投稿の一覧
     @user = User.find(params[:id])
-    @purchases = Purchase.where(user_id: current_user.id).page(params[:page])
+    @purchases = Purchase.where(user_id: current_user.id).page(params[:page]).order(created_at: :desc)
   end
 
   def favorite_all
     # いいねした投稿の一覧
     @user = User.find(params[:id])
-    @favorites = current_user.favorites.page(params[:page])
+    @favorites = current_user.favorites.page(params[:page]).order(created_at: :desc)
   end
 
   def edit

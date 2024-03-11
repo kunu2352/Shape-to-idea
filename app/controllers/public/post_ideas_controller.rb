@@ -14,7 +14,6 @@ class Public::PostIdeasController < ApplicationController
   def new
     # 投稿作成
     @post_idea = PostIdea.new
-  # current_user @user =
   end
 
   def show

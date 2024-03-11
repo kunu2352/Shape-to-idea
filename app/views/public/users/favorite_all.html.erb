@@ -1,3 +1,4 @@
+<!--いいね一覧ページ-->
 <%= render 'public/users/show_navi'%>
 <div class="container-fluid">
   <div class="row pt-4">
@@ -9,6 +10,7 @@
     <div class= "col-lg-9 justify-content-center main-container">
       <div class="row">
         <% @favorites.each do |favorite| %>
+          <!--いいねした投稿が非表示の場合かつログインユーザーが投稿者の場合-->
           <% if favorite.post_idea.status != "published" && favorite.post_idea.user == current_user %>
             <div class="col-md-3 col-sm-6">
               <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card">
@@ -38,6 +40,7 @@
               </div>
             </div>
           <% else favorite.post_idea.status == "published" %>
+          <!--いいねした投稿が表示状態の場合-->
             <div class="col-lg-3 col-md-4 col-sm-6">
               <div class="card my-3 mr-3 shadow p-3 bg-body-tertiary rounded post_idea_card">
                 <%= link_to public_post_idea_path(favorite.post_idea.id) do %>

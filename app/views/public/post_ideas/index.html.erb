@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2 col-lg-2 sidebar-container">
-       <div class="d-md-block bg-light sidebar sidebar-container">
+      <div class="d-md-block bg-light sidebar sidebar-container">
         <h5 class="text-center mb-3">カテゴリー</h5>
         <% @categories.each do |category| %>
-        <ul>
-          <li>
-            <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
-          </li>
-        </ul>
+          <ul>
+            <li>
+              <%= link_to category.category_name, public_category_path(category.id), class: "text-secondary" %>
+            </li>
+          </ul>
         <% end %>
       </div>
     </div>
