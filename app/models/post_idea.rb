@@ -29,7 +29,7 @@ class PostIdea < ApplicationRecord
     @post_idea =PostIdea.where("title LIKE ? OR free_body LIKE ?","%#{word}%","%#{word}%")
   end
 
-  public def get_post_idea_image
+  def get_post_idea_image
     unless post_image.attached?
       file_path = Rails.root.join('app/assets/images/idea.jpg')
       post_image.attach(io: File.open(file_path), filename: 'default_ikon.jpg', content_type: 'image/jpeg')
