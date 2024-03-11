@@ -91,7 +91,6 @@
           </thead>
         </table>
         <p><%= post_comment.comment %></p>
-        <%= notice %>
         <% end %>
         <!--ゲストユーザーはコメント不可　コメント機能-->
         <% if current_user.email== 'guest@example.com' %>
