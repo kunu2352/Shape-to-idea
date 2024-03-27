@@ -4,6 +4,7 @@ class Public::PostIdeasController < ApplicationController
   before_action :purchase_by, only:[:show]
   before_action :purchase_post_edit, only:[:edit]
   before_action :guest_user_limit, only:[:edit, :update]
+  before_action :is_matching_login_user, only:[:edit]
 
   def index
     # 投稿一覧
@@ -75,7 +76,7 @@ class Public::PostIdeasController < ApplicationController
       end
     end
   end
-  
+
   def guest_user_limit
     if current_user.email == 'guest@example.com'
       redirect_to public_post_idea_path(@post_idea.id)
@@ -90,6 +91,14 @@ class Public::PostIdeasController < ApplicationController
 
   def post_idea_params
     params.require(:post_idea).permit(:post_idea_params, :category_id, :title, :status, :free_body, :paid_body, :premium, :price, :post_image)
+  end
+
+  def is_matching_login_user
+    post_idea = PostIdea.find(params[:id])
+    user =  post_idea.user
+    unless user.id == current_user.id
+      redirect_to public_post_ideas_path
+    end
   end
 
 end
