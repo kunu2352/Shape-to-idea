@@ -93,6 +93,7 @@ class Public::PostIdeasController < ApplicationController
     params.require(:post_idea).permit(:post_idea_params, :category_id, :title, :status, :free_body, :paid_body, :premium, :price, :post_image)
   end
 
+# ログイン者でなければ投稿編集をおこなえないようにする。
   def is_matching_login_user
     post_idea = PostIdea.find(params[:id])
     user =  post_idea.user
