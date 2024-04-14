@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     end
     resources :purchases, only: [:create]
     resources :category, only: [:show]
+    resources :idea_requests, only: [:index, :new, :create]
   end
   
   

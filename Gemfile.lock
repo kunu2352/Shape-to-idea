@@ -278,6 +278,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actiontext
   aws-sdk-s3
   bootsnap (>= 1.4.4)
   byebug
