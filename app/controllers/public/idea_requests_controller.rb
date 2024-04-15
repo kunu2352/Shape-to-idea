@@ -14,7 +14,7 @@ class Public::IdeaRequestsController < ApplicationController
   end
   
   def index
-    @idea_requests = IdeaRequet.where(user_id: current_user.id).includes(:user).order("created_at DESC")
+    @idea_requests = IdeaRequest.where(user_id: current_user.id).includes(:user).order("created_at DESC")
   end
   
   
