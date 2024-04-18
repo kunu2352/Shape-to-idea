@@ -25,6 +25,9 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :possive_relationships, source: :follower
   
+  
+  has_many :idea_requests
+  
   # フォローする
   def follow(user)
     active_relationships.create!(followed_id: user.id)
