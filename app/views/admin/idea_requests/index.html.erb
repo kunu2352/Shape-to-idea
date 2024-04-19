@@ -1,0 +1,5 @@
+<% @idea_requests.each do |idea_request| %>
+<%= idea_request.user.name %>
+<%= link_to idea_request.title, admin_idea_request_path(idea_request.id) %>
+<%= idea_request.title %>
+<% end %>
