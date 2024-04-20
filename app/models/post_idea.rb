@@ -10,6 +10,7 @@ class PostIdea < ApplicationRecord
   #投稿購入者と投稿の紐づけ
   belongs_to :user
   #投稿との紐付け用
+  
 
   # validates :price, presence: true, numericality: { greater_than_or_equal_to: 1, less_than: 5000000 }
 

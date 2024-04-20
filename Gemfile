@@ -60,6 +60,8 @@ gem 'devise'
 
 gem "enum_help"
 
+gem 'pry-rails'
+
 gem 'kaminari','~> 1.2.1'
 
 gem 'image_processing'
@@ -76,3 +78,7 @@ gem "net-pop"
 gem "net-imap"
 
 gem "aws-sdk-s3"
+
+gem 'actiontext'
+
+gem "mini_magick"
