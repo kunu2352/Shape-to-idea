@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2024_04_14_100740) do
   create_table "idea_requests", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,5 +1,27 @@
-<% @idea_requests.each do |idea_request| %>
-<%= idea_request.user.name %>
-<%= link_to idea_request.title, admin_idea_request_path(idea_request.id) %>
-<%= idea_request.title %>
-<% end %>
+<div class="container-fluid">
+  <div class="row p-4 justify-content-center">
+    <h3>アイデアリクエスト一覧</h3>
+  </div>
+  <div class="row p-4 justify-content-center">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-1">受付番号</th>
+          <th class="col-1">ユーザー名</th>
+          <th class="col-4">タイトル</th>
+          <th class="col-1">ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @idea_requests.each do |idea_request| %>
+          <tr>
+            <th><%= link_to idea_request.id, admin_idea_request_path(idea_request.id) %></th>
+            <th><%= link_to idea_request.user.name, admin_user_path(idea_request.user.id)  %></th>
+            <th><%= link_to idea_request.title, admin_idea_request_path(idea_request.id) %></th>
+            <th><%= idea_request.status %></th>
+          </tr>
+        <% end %>
+      <tbody>
+    </table>
+  </div>
+</div>
