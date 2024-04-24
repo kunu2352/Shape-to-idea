@@ -1,11 +1,15 @@
-<%= form_with model: @idea_request, url: public_idea_requests_path do |f| %>
-  <div class="field">
-  <%= f.label :title, "タイトル(※必須)" %>
-  <%= f.text_field :title, rows: 10, class: "form-control" %>
+<div class="container-fluid">
+  <div class="row p-4 justify-content-center">
+    <%= form_with model: @idea_request, url: public_idea_requests_path do |f| %>
+      <div class="field">
+      <%= f.label :title, "タイトル(※必須)" %>
+      <%= f.text_field :title, rows: 10, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :content %>
+        <%= f.rich_text_area :content, class: "form-control" %>
+      </div>
+      <%= f.submit "投稿", class: "btn btn-success mb-5" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.rich_text_area :content, class: "form-control" %>
-  </div>
-  <%= f.submit "投稿", class: "btn btn-success mb-5" %>
-<% end %>
+</div>
