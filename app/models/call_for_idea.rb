@@ -1,0 +1,2 @@
+class CallForIdea < ApplicationRecord
+end
