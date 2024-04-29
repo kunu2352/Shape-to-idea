@@ -1,0 +1,2 @@
+class IdeaSolocoted < ApplicationRecord
+end
