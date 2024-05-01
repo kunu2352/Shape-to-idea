@@ -4,7 +4,7 @@ class Admin::CallForIdeasController < ApplicationController
   end
   
   def create
-    
+    @call_for_idea = CallForIdea.new(call_for_idea_params)
     
   end
   
@@ -15,7 +15,7 @@ class Admin::CallForIdeasController < ApplicationController
   private
   
   def call_for_idea_params
-    params.require(:call_for_idea).permit(:user_id, :title, :recruitment, :recruitment_image)
+    params.require(:call_for_idea).permit(:user_id, :title, :recruitment, :recruitment_image, :recruitment_image_banner)
   end
   
 end
