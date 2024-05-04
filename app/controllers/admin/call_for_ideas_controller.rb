@@ -5,11 +5,16 @@ class Admin::CallForIdeasController < ApplicationController
   
   def create
     @call_for_idea = CallForIdea.new(call_for_idea_params)
-    
+    if @call_for_idea.invalid?
+      render :new
+    end
   end
   
   def confirm
-    
+    @call_for_idea = CallForIdea.new(call_for_idea_params)
+    if @call_for_idea.invalid?
+      render :new
+    end
   end
   
   private

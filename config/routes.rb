@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   namespace :admin do
     # get 'homes/top' => 'homes#top', as: :top
     get 'post_ideas/purchase' => 'post_ideas/purchase', as: :purchase
-    get 'call_for_idea/confirm' => 'call_for_idea#confirm', as: :comfirm
+    post 'call_for_ideas/confirm' => 'call_for_ideas#confirm', as: :confirm
     resources :post_comments, only: [:index, :destroy]
     resources :post_ideas, only: [:show, :index] do
     patch 'post_ideas/published' => 'post_ideas/published', as: :published
