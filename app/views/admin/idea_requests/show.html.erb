@@ -28,10 +28,10 @@
       </div>
       <div>
         <%= form_with model: @call_for_idea, url: admin_confirm_path, method: :post do |f| %>
-          <%= f.label :recruitment_image_banner, "バナー画像" %>
-          <%= f.file_field :post_image, accept: "image/*" %><br>
-          <%= f.label :user_id, "リクエスト" %>  
-          <%= f.file_field :post_image, accept: "image/*" %>
+          <%= f.label :recruitment_image_banner, "バナー画像" %><br>
+          <%= f.file_field :recruitment_image_banner, accept: "image/*" %><br>
+          <%= f.label :recruitment_image, "参考画像" %><br>
+          <%= f.file_field :recruitment_image, accept: "image/*" %><br>
           <div class="field">
             <%= f.label :user_id, "ユーザーID" %>
             <%= f.number_field :user_id, class: "form-control"  %>
