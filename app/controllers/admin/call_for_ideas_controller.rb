@@ -11,7 +11,8 @@ class Admin::CallForIdeasController < ApplicationController
   end
   
   def confirm
-    @call_for_idea = CallForIdea.new
+    @call_for_ideas = CallForIdea.new
+    @call_for_ideas.user_id = @call_for_ideas.user_id
   end
   
   private

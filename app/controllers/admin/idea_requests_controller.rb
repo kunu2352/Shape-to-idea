@@ -6,6 +6,7 @@ class Admin::IdeaRequestsController < ApplicationController
   
   def show
     @idea_request = IdeaRequest.find(params[:id])
+    @call_for_idea = CallForIdea.new
   end
   
   
