@@ -9,5 +9,7 @@ class Admin::IdeaRequestsController < ApplicationController
     @call_for_idea = CallForIdea.new
   end
   
+
+  
   
 end
