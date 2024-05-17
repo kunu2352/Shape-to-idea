@@ -8,6 +8,11 @@ class Admin::CallForIdeasController < ApplicationController
     if @call_for_idea.invalid?
       render :new
     end
+    if @call_for_idea.save
+      redirect_to admin_idea_requests_path
+    else 
+      render :confirm
+    end
   end
   
   def confirm
