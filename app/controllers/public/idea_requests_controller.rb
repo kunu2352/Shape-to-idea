@@ -21,7 +21,7 @@ class Public::IdeaRequestsController < ApplicationController
   private
 
   def idea_request_params
-    params.require(:idea_request).permit(:title, :content, :stetus)
+    params.require(:idea_request).permit(:title, :content, :stetus, :email, :telephone_number)
   end
 
 end

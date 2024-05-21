@@ -6,7 +6,6 @@ class CreateIdeaRequests < ActiveRecord::Migration[6.1]
       t.integer :status, default: 0, null: false
       t.integer :telephone_number, null: false
       t.integer :email, null: false
-      
       t.timestamps
     end
   end
