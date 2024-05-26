@@ -1,4 +1,6 @@
 <% @idea_requests.each do |idea_request| %>
+  <%= link_to public_idea_request_path(idea_request.id) do %>
   <%= idea_request.title %>
+  <% end %>
 <% end %>
 
