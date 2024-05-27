@@ -1,29 +1,29 @@
-<table>
-  <tr>
-    <td>ユーザー名</td>
-    <td>ユーザーID</td>
-    <td>投稿タイトル</td>
-    <td>投稿内容</td>
-  </tr>
-  <tr>
-    <td>
-      <%= @call_for_ideas.user_id %>
-    </td>
-    <td>
-      <%= @call_for_ideas.user_id %>
-    </td>
-    <td>
-      <%= @call_for_ideas.title %>
-    </td>
-    <td>
-      <%= @call_for_ideas.recruitment %>
-    </td>
-  </tr>
-</table>
-
-<%= form_with model: @call_for_idea , url: admin_call_for_ideas_path, method: :post do |f| %>
-  <%= f.hidden_field :user_id, value:@call_for_ideas.user_id %>
-  <%= f.hidden_field :title, value:@call_for_ideas.title %>
-  <%= f.hidden_field :recruitment, value:@call_for_ideas.recruitment %>
-  <%= f.submit "リクエスト作成を確定する" %>
-<% end %>
+  <div  class="row p-4  justify-content-center">
+    <div class="col-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-3">ユーザー名</th>
+            <th class="col-2">ユーザーID</th>
+            <th class="col-1">投稿内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><%= @call_for_ideas.user_id %></th>
+            <th><%= @call_for_ideas.user_id %></th>
+            <th><%= @call_for_ideas.title %></th>
+            <th><%= @call_for_ideas.recruitment %></th>
+          </tr>
+          <th>
+            <%= form_with model: @call_for_idea , url: admin_call_for_ideas_path, method: :post do |f| %>
+              <%= f.hidden_field :user_id, value:@call_for_ideas.user_id %>
+              <%= f.hidden_field :title, value:@call_for_ideas.title %>
+              <%= f.hidden_field :recruitment, value:@call_for_ideas.recruitment %>
+              <%= f.submit "リクエスト作成を確定する" %>
+          <% end %>
+          </th>
+        </tbody>
+      </table>
+    </div>
+  </div>
