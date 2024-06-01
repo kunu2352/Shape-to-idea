@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :possive_relationships, source: :follower
   
-  
+  has_one :call_for_idea
   has_many :idea_requests
   
   # フォローする
