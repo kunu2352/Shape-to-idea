@@ -17,7 +17,7 @@
           </tr>
           <th>
             <%= form_with model: @call_for_idea , url: admin_call_for_ideas_path, method: :post do |f| %>
-              <%= f.hidden_field :user_id, value:@call_for_ideas.user_id %>
+              <%= f.hidden_field :user_id, value:@idea_request.user_id %>
               <%= f.hidden_field :title, value:@call_for_ideas.title %>
               <%= f.hidden_field :recruitment, value:@call_for_ideas.recruitment %>
               <%= f.submit "リクエスト作成を確定する" %>
