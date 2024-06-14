@@ -8,7 +8,7 @@ class Public::IdeaRequestsController < ApplicationController
   def create
     @idea_request = IdeaRequest.new(idea_request_params)
     @idea_request.user_id = current_user.id
-    if @idea_request.save
+    if @idea_request.save!
       redirect_to public_user_path(current_user.id)
     else
       render :new
@@ -28,7 +28,7 @@ class Public::IdeaRequestsController < ApplicationController
   private
 
   def idea_request_params
-    params.require(:idea_request).permit(:title, :content, :stetus, :email, :telephone_number)
+    params.require(:idea_request).permit(:title, :content, :stetus, :email, :telephone_number, :user_id)
   end
   
   def show_access

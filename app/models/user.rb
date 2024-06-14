@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_many :possive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :possive_relationships, source: :follower
-  
+  has_many :call_for_ideas, through: :idea_requests
   has_many :call_for_ideas
   has_many :idea_requests
   

@@ -16,8 +16,11 @@ class Admin::CallForIdeasController < ApplicationController
   end
   
   def confirm
-    @call_for_ideas = CallForIdea.new(call_for_idea_params)
-    @idea_request.user.id = CallForIdea
+    byebug
+    
+    @idea_request = IdeaRequest.find(params[:idea_request_id])
+    @call_for_idea = CallForIdea.new
+    @call_for_idea.user_id = @idea_request.user_id
   end
   
   private
