@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2024_04_29_123709) do
     t.string "title", null: false
     t.text "recruitment", null: false
     t.integer "user_id", null: false
+    t.integer "idea_request_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

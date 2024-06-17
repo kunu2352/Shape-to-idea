@@ -8,7 +8,7 @@ class Admin::IdeaRequestsController < ApplicationController
     
     @idea_request = IdeaRequest.find(params[:id])
     @call_for_idea = CallForIdea.new
-    binding.pry
+    
   end
   
 

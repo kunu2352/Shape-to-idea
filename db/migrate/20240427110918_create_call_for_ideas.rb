@@ -4,6 +4,7 @@ class CreateCallForIdeas < ActiveRecord::Migration[6.1]
       t.string :title, null: false
       t.text :recruitment, null: false
       t.integer :user_id, null: false
+      t.integer :idea_request_id, null: false
       t.timestamps
     end
   end
