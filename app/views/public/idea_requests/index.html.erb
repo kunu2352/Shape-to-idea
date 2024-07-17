@@ -1,4 +1,20 @@
-<% @idea_requests.each do |idea_request| %>
-  <%= idea_request.title %>
-<% end %>
+<div class="container-fluid">
+  <div  class="row p-4  justify-content-center">
+    <div class="col-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-3">タイトル名</th>
+            <th class="col-2">リクエスト日</th>
+            <th class="col-1">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @idea_requests.each do |idea_request| %>
+            <tr>
+              <th><%= link_to  idea_request.title, public_idea_request_path(idea_request.id) %></th>
+              <th><%= idea_request.created_at.strftime('%Y/%m/%d') %></th>
+              <th><%= idea_request.status %></th>
+            </tr>
+          <% end %>
 

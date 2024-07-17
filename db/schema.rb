@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_14_100740) do
+ActiveRecord::Schema.define(version: 2024_04_29_123709) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(version: 2024_04_14_100740) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "call_for_ideas", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "recruitment", null: false
+    t.integer "user_id", null: false
+    t.integer "idea_request_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
     t.datetime "created_at", precision: 6, null: false
@@ -80,6 +89,13 @@ ActiveRecord::Schema.define(version: 2024_04_14_100740) do
     t.integer "user_id", null: false
     t.string "title", null: false
     t.integer "status", default: 0, null: false
+    t.integer "telephone_number", null: false
+    t.integer "email", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "idea_solocoteds", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
